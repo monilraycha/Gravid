@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import CommonButton from '../components/CommonButton';
 
-const StartJourney = () => {
+const StartJourney = ({navigation}) => {
   const [selectedOption, setSelectedOption] = useState(null); // Track selected option
 
   const renderCheckbox = (isChecked, onPress, imageSource) => (
@@ -22,6 +22,19 @@ const StartJourney = () => {
   const handleEdit = () => {
     setSelectedOption(null); // Reset the selected option when Edit is clicked
   };
+
+  const handlePress = () => {
+      if(selectedOption === 'pregnancy'){
+        navigation.navigate('TrackPregnancy') // twist
+      }
+      else if(selectedOption === 'childDevelopment'){
+        navigation.navigate('AddChildren')
+      }
+      if(!selectedOption){
+        navigation.navigate('SignUpScreen')
+      }
+
+  }
 
   return (
     <View style={styles.container}>
@@ -85,7 +98,7 @@ const StartJourney = () => {
 
       <CommonButton
         title={selectedOption ? 'CONTINUE' : 'I HAVE A SHARING CODE'}
-        onPress={() => {}}
+        onPress={handlePress}
         filled={false}
         style={styles.button}
       />
@@ -100,6 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     marginTop: 70,
+    backgroundColor: '#FFF3E6',
   },
   title: {
     fontSize: 28,

@@ -10,49 +10,46 @@ import {
 import CommonButton from '../components/CommonButton';
 import carouselData from '../helpers/CarouselData';
 
-const {width: screenWidth} = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get('window');
 const imageSize = screenWidth;
 
-const WelcomeScreen = (props) => {
+const WelcomeScreen = ({ navigation, currentIndexCallback }) => {
+  const [index, setIndex] = React.useState(0);
 
-  const [index , setIndex] = React.useState(0);
+  const onViewableItemsChanged = React.useCallback(({ viewableItems }) => {
+    if (viewableItems.length > 0) {
+      const currentIndex = viewableItems[0].index;
+      setIndex(currentIndex);
 
-  const onViewableItemsChanged = React.useCallback(({ viewableItems }) => {  
-    if (viewableItems.length > 0) {  
-      const currentIndex = viewableItems[0].index;  
-      setIndex(currentIndex);  
-      
-      if (props.currentIndexCallback) {  
-        props.currentIndexCallback(currentIndex);  
-      }  
-    }  
-  }, [props]);  
+      if (currentIndexCallback) {
+        currentIndexCallback(currentIndex);
+      }
+    }
+  }, [currentIndexCallback]);
 
-  const viewabilityConfig = {  
-    viewAreaCoveragePercentThreshold: 50,  
-  }; 
+  const viewabilityConfig = {
+    viewAreaCoveragePercentThreshold: 50,
+  };
 
-  const renderDots = () => {  
-
-    const totalDots = 5; // Total number of dots  
-    return (  
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>  
-        {Array.from({ length: totalDots }, (_, i) => (  
-          <View   
-            key={i}   
-            style={{   
-              width: 9,   
-              height: 9,   
-              borderRadius: 10,   
-              backgroundColor: i === index ? '#F88C8C' : '#D9D9D9', // Change color based on active index  
-              margin: 10
-            }}   
-          />  
-        ))}  
-      </View>  
-    );  
-  };  
-
+  const renderDots = () => {
+    const totalDots = 5; // Total number of dots
+    return (
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        {Array.from({ length: totalDots }, (_, i) => (
+          <View
+            key={i}
+            style={{
+              width: 9,
+              height: 9,
+              borderRadius: 10,
+              backgroundColor: i === index ? '#F88C8C' : '#D9D9D9', // Change color based on active index
+              margin: 10,
+            }}
+          />
+        ))}
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -61,10 +58,10 @@ const WelcomeScreen = (props) => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onViewableItemsChanged={onViewableItemsChanged}  
-        viewabilityConfig={viewabilityConfig} 
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <View style={styles.slide}>
             <Image source={item.image} style={styles.image} />
             <Text style={styles.title}>{item.title}</Text>
@@ -76,12 +73,12 @@ const WelcomeScreen = (props) => {
       <View style={styles.buttonContainer}>
         <CommonButton
           title="START THE JOURNEY"
-          onPress={() => {}}
+          onPress={() => navigation.navigate('StartJourney')}
           filled={true}
         />
         <CommonButton
           title="I ALREADY HAVE AN ACCOUNT"
-          onPress={() => {}}
+          onPress={() => navigation.navigate('LoginScreen')}
           filled={false}
         />
       </View>
@@ -107,12 +104,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    // fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 60,
     color: '#333',
     fontFamily: 'Open Sans SemiCondensed Bold',
-    // fontWeight:'600'
   },
   description: {
     fontSize: 16,

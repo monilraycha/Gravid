@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+
 import CommonButton from '../components/CommonButton';
 
 const SignUpScreen = () => {
@@ -86,14 +87,14 @@ const SignUpScreen = () => {
       </View>
 
       <Text style={styles.termsText}>
-        I agree to the
+        By continuing i agree to the
         <Text
           style={styles.linkText}
           onPress={() => alert('Terms of Use clicked')}>
           {' '}
           Terms of Use
-        </Text>
-        &
+        </Text>{' '}
+        and
         <Text
           style={styles.linkText}
           onPress={() => alert('Privacy Policy clicked')}>
@@ -102,7 +103,7 @@ const SignUpScreen = () => {
         </Text>
       </Text>
 
-      <CommonButton
+      {/* <CommonButton
         title="Create Account"
         onPress={() => alert('Account Created Successfully!')}
         filled={false} // Enable button when a checkbox is checked
@@ -111,6 +112,20 @@ const SignUpScreen = () => {
           {backgroundColor: selectedOption ? '#F88C8C' : '#D9D9D9'}, // Primary color when checked, gray when not
         ]}
         disabled={!selectedOption}
+      /> */}
+
+      <CommonButton
+        title="CREATE ACCOUNT"
+        onPress={() => alert('Account Created Successfully!')}
+        filled={isFormValid} // Enable button when both checkboxes are checked
+        style={[
+          styles.button,
+          {backgroundColor: isFormValid ? '#F88C8C' : '#D9D9D9'}, // Primary color when checked, gray when not
+        ]}
+        textStyle={{
+          color: isFormValid ? '#000000' : '#ffffff', // White text when enabled, gray when disabled
+        }}
+        disabled={!isFormValid}
       />
     </View>
   );
@@ -123,6 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     marginTop: 70,
+    backgroundColor: '#FFF3E6',
   },
   title: {
     fontSize: 28,
@@ -137,6 +153,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
+    marginTop: 10,
   },
   input: {
     borderWidth: 1,
@@ -145,6 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 15,
     fontSize: 16,
+    marginTop: 10,
   },
   checkboxWrapper: {
     marginTop: 10,
@@ -186,19 +204,14 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     width: '100%',
-    alignSelf: 'center',
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: 'center',
   },
   termsText: {
     fontSize: 16,
     color: '#000', // Normal text color
-    textAlign: 'center',
     marginTop: 10,
   },
   linkText: {
-    color: 'blue',  // Light blue color for links
+    color: '#87CEFA', // Light blue color for links
     textDecorationLine: 'underline', // Underline effect
     fontWeight: 'bold',
   },
