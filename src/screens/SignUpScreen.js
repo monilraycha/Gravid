@@ -1,29 +1,44 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import CommonButton from '../components/CommonButton';
-
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isCheckedTerms, setIsCheckedTerms] = useState(false);
   const [isCheckedPrivacy, setIsCheckedPrivacy] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleCheckboxSelect = option => {
+    setSelectedOption(option);
+  };
 
   const renderCheckbox = (isChecked, onPress, imageSource) => (
     <TouchableOpacity style={styles.checkboxContainer} onPress={onPress}>
       <View style={[styles.checkbox, isChecked && styles.checkboxChecked]}>
-        {isChecked && <Image source={imageSource} style={styles.checkmarkImage} />}
+        {isChecked && (
+          <Image source={imageSource} style={styles.checkmarkImage} />
+        )}
       </View>
     </TouchableOpacity>
   );
 
-  const isFormValid = email !== '' && password !== '' && isCheckedTerms && isCheckedPrivacy;
+  const isFormValid =
+    email !== '' && password !== '' && isCheckedTerms && isCheckedPrivacy;
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
       <Text style={styles.description}>
-        Create an account to avoid the risk of losing your data when you change your phone
+        Create an account to avoid the risk of losing your data when you change
+        your phone
       </Text>
 
       <View style={styles.inputContainer}>
@@ -49,31 +64,54 @@ const SignUpScreen = () => {
           {renderCheckbox(
             isCheckedTerms,
             () => setIsCheckedTerms(!isCheckedTerms),
-            require('../assets/images/check.png')
+            require('../assets/images/check.png'),
           )}
-          <Text style={styles.checkboxText}>I give consent to the processing of my health data, such as the expected due date.</Text>
+          <Text style={styles.checkboxText}>
+            I give consent to the processing of my health data, such as the
+            expected due date.
+          </Text>
         </View>
 
         <View style={styles.checkboxItem}>
           {renderCheckbox(
             isCheckedPrivacy,
             () => setIsCheckedPrivacy(!isCheckedPrivacy),
-            require('../assets/images/check.png')
+            require('../assets/images/check.png'),
           )}
-          <Text style={styles.checkboxText}>I want newsletters with tips, information and offers during my pregnancy.</Text>
+          <Text style={styles.checkboxText}>
+            I want newsletters with tips, information and offers during my
+            pregnancy.
+          </Text>
         </View>
       </View>
 
-      <Text> By continuing I agree to the Terms of Use and Privacy Policy.</Text>
+      <Text style={styles.termsText}>
+        I agree to the
+        <Text
+          style={styles.linkText}
+          onPress={() => alert('Terms of Use clicked')}>
+          {' '}
+          Terms of Use
+        </Text>
+        &
+        <Text
+          style={styles.linkText}
+          onPress={() => alert('Privacy Policy clicked')}>
+          {' '}
+          Privacy Policy
+        </Text>
+      </Text>
 
       <CommonButton
         title="Create Account"
         onPress={() => alert('Account Created Successfully!')}
-        filled={isFormValid ? true : false}
-        style={[styles.button, !isFormValid && styles.buttonDisabled]}
-        disabled={!isFormValid}
+        filled={false} // Enable button when a checkbox is checked
+        style={[
+          styles.button,
+          {backgroundColor: selectedOption ? '#F88C8C' : '#D9D9D9'}, // Primary color when checked, gray when not
+        ]}
+        disabled={!selectedOption}
       />
-
     </View>
   );
 };
@@ -114,7 +152,7 @@ const styles = StyleSheet.create({
   checkboxItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'flex-start',
+    justifyContent: 'flex-start',
     width: '100%',
     marginBottom: 15,
   },
@@ -149,8 +187,21 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
     alignSelf: 'center',
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: 'center',
   },
-  buttonDisabled: {
-    backgroundColor: '#ccc',
+  termsText: {
+    fontSize: 16,
+    color: '#000', // Normal text color
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  linkText: {
+    color: 'blue',  // Light blue color for links
+    textDecorationLine: 'underline', // Underline effect
+    fontWeight: 'bold',
   },
 });
+
+// remains from create account button
