@@ -7,6 +7,7 @@ import {
   ScrollView,
   FlatList,
   Animated,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import colors from '../../constants/color';
@@ -17,6 +18,11 @@ import {
 } from '../../helpers/Metrics';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {RFValue} from 'react-native-responsive-fontsize';
+import videoData from '../../helpers/VideoData';
+import VideoPlayer from 'react-native-video-player';
+
+const {height} = Dimensions.get('window');
+
 
 const AnimatedHeader = ({animatedValue, navigation}) => {
   const headerHeight = animatedValue.interpolate({
@@ -73,23 +79,10 @@ const AnimatedHeader = ({animatedValue, navigation}) => {
 
 
 const HomeScreen = ({navigation}) => {
-  // Data for the video cards in FlatList
-  const videoData = [
-    {
-      id: '1',
-      image: require('../../assets/images/welcome-image-1.jpg'),
-      title: 'Tips and advice 0–6 months',
-      subTitle: 'Bathing a newborn',
-      timestamp: '00:15',
-    },
-    {
-      id: '2',
-      image: require('../../assets/images/welcome-image-2.jpg'),
-      title: 'Tips and advice',
-      subTitle: 'Breastfeeding',
-      timestamp: '02:30',
-    },
-  ];
+
+
+  const playerRef = React.useRef(null);
+  const videoRefs = React.useRef([]);
 
   const offset = React.useRef(new Animated.Value(0)).current;
 
@@ -172,40 +165,34 @@ const HomeScreen = ({navigation}) => {
                   </View>
                 </TouchableOpacity>
 
-                <View style={styles.newSection}>
-                  <Text style={styles.sectionTitle}>FEATURED THIS MONTH</Text>
 
                   {/* Horizontal FlatList for Video Cards */}
-                  <FlatList
-                    data={videoData}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={item => item.id}
-                    renderItem={({item}) => (
-                      <TouchableOpacity style={styles.featuredCard}>
-                        <View style={styles.thumbnailContainer}>
-                          <Image
-                            source={item.image}
-                            style={styles.featuredImage}
-                          />
-                          {/* Play Icon */}
-                          <View style={styles.playIconContainer}>
-                            <Image
-                              source={require('../../assets/icons/play-button.png')}
-                              tintColor={'#fff'}
-                              style={styles.playIcon}
-                            />
-                          </View>
-                          {/* Timestamp */}
-                          <Text style={styles.timestamp}>{item.timestamp}</Text>
-                        </View>
-                        <Text style={styles.featuredText}>{item.title}</Text>
-                        <Text style={styles.featuredSubText}>
-                          {item.subTitle}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-                  />
+                  <View style={styles.VideoContainer}>
+                <Text style={styles.VideoTitle}>FEATURED THIS MONTH</Text>
+                <FlatList
+                  data={videoData} 
+                  horizontal
+                  keyExtractor={(item) => item.id}
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                    <View style={styles.VideoCard}>
+                      <VideoPlayer
+                        ref={playerRef}
+                        endWithThumbnail
+                        thumbnail={{ uri: item.thumbnail }}
+                        source={{ uri: item.videoUri }}
+                        onError={(e) => console.log(e)}
+                        showDuration={true}
+                        style={styles.videoPlayer}
+                      />
+                      <Text style={styles.titleVideo}>{item.title}</Text>
+                      <Text style={styles.descriptionVideo}>
+                        {item.description}
+                      </Text>
+                    </View>
+                  )}
+                />
+              {/* </View> */}
 
                   {/* Instagram Card */}
                   <Text style={styles.sectionTitle}>INSTAGRAM</Text>
@@ -316,11 +303,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   title: {
-    fontSize: RFValue(16),
-    fontWeight: moderateScale(350),
+    fontSize: RFValue(16 , height),
     marginBottom: verticalScale(10),
     marginTop: verticalScale(20),
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat Medium',
+    textAlign: 'center',
   },
   dataContainer: {
     flexDirection: 'row',
@@ -444,30 +431,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(20),
   },
   sectionTitle: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(14 , height),
     marginBottom: verticalScale(10),
     marginTop: verticalScale(20),
     fontFamily: 'Montserrat',
-  },
-  featuredContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  featuredCard: {
-    width: horizontalScale(250),
-    backgroundColor: '#E0F2F1',
-    borderRadius: moderateScale(10),
-    overflow: 'hidden',
-    marginRight: verticalScale(10),
-    position: 'relative',
-  },
-  thumbnailContainer: {
-    position: 'relative',
-  },
-  featuredImage: {
-    width: '100%',
-    height: verticalScale(200),
-    resizeMode: 'cover',
   },
   playIconContainer: {
     position: 'absolute',
@@ -479,29 +446,53 @@ const styles = StyleSheet.create({
     width: horizontalScale(50),
     height: horizontalScale(50),
   },
-  timestamp: {
-    position: 'absolute',
-    right: 10,
-    bottom: 10,
-    fontSize: RFValue(12),
-    fontWeight: 'bold',
-    color: '#fff',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    padding: moderateScale(5),
-    borderRadius: moderateScale(5),
-  },
-  featuredText: {
-    fontSize: RFValue(14),
+  VideoContainer: {
+    paddingLeft: horizontalScale(20),
     marginTop: verticalScale(10),
-    padding: horizontalScale(10),
-    fontFamily: 'Montserrat Medium',
+
   },
-  featuredSubText: {
-    fontSize: RFValue(12),
-    marginLeft: horizontalScale(10),
+  VideoTitle: {
     marginBottom: verticalScale(10),
-    fontFamily: 'Montserrat Light',
+    marginRight: horizontalScale(10),
+    fontSize: RFValue(14, height),
+    fontFamily: "Montserrat Medium",
+    color: "#333",
   },
+  VideoCard: {
+    width: horizontalScale(250),
+    marginRight: horizontalScale(15),
+    backgroundColor: "#fff",
+    borderRadius: moderateScale(10),
+    paddingBottom: verticalScale(30),
+    marginBottom: verticalScale(10),
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 8,
+    overflow: "hidden",
+  },
+  titleVideo: {
+    fontSize: RFValue(16, height),
+    marginTop: verticalScale(10),
+    marginBottom: verticalScale(5),
+    color: "gray",
+    marginLeft: horizontalScale(15),
+    fontFamily: "Montserrat Medium",
+  },
+  descriptionVideo: {
+    fontSize: RFValue(14, height),
+    marginBottom: verticalScale(5),
+    marginLeft: horizontalScale(15),
+    fontFamily: "Montserrat Regular",
+  },
+  videoPlayer: {
+    width: "100%",
+    height: verticalScale(180),
+    borderTopLeftRadius: moderateScale(10),
+    borderTopRightRadius: moderateScale(10),
+  },
+
   instagramCard: {
     backgroundColor: '#fff',
     padding: 15,
@@ -601,7 +592,15 @@ const styles = StyleSheet.create({
     marginLeft: RFValue(10),
     fontFamily: 'Montserrat',
   },
-
+  oxytocinText:{
+    fontSize: RFValue(12),
+    fontFamily: 'Montserrat Medium',
+    paddingBottom: RFValue(7),
+  },
+  oxytocinDesc:{
+    fontSize: RFValue(10),
+    fontFamily: 'Montserrat',
+  },
   oxytocinImage: {
     width: RFValue(150),
     height: '100%',

@@ -5,60 +5,71 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Dimensions,
+  ScrollView
 } from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../constants/color';
 import {RFValue} from 'react-native-responsive-fontsize';
+import { verticalScale , horizontalScale , moderateScale } from '../../helpers/Metrics';
 
-const ToolsScreen = () => {
+const {height} = Dimensions.get('window');
+
+const tools = [
+  // {
+  //   id: '1',
+  //   title: 'Wellness',
+  //   description: 'Safe workouts and yoga sessions tailored to pregnancy',
+  //   icon: require('../../assets/icons/star.png'),
+  //   category: 'HEALTH',
+  // },
+  {
+    id: '1',
+    title: 'CheckList',
+    description:
+      'A comprehensive list with checkboxes, helping you to prepare',
+    icon: require('../../assets/icons/2.png'),
+    category: 'PLANNING',
+    screenName:'CheckList'
+  },
+  {
+    id: '2',
+    title: 'Weight curve',
+    description: 'Log and follow your weight during pregnancy',
+    icon: require('../../assets/icons/3.png'),
+    category: 'BIRTH',
+    
+  },
+  {
+    id: '3',
+    title: 'Calender',
+    description: 'Monitor and improve your sleep patterns',
+    icon: require('../../assets/icons/4.png'),
+    category: 'BIRTH',
+    screenName:"Calender"
+
+  },
+  {
+    id: '4',
+    title: 'Nutrition Guide',
+    description: 'Healthy meal plans for pregnancy',
+    icon: require('../../assets/icons/5.png'),
+    category: 'HEALTH',
+    screenName:"Nutrition"
+  },
+  {
+    id: '5',
+    title: 'Symptom Checker & Journal',
+    description: 'Track contractions during labor',
+    icon: require('../../assets/icons/6.png'),
+    category: 'PLANNING',
+    screenName:"SymptomChecker"
+  },
+];
+
+const ToolsScreen = ({navigation}) => {
   const [likedTools, setLikedTools] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('ALL'); // Default filter
-
-  const tools = [
-    {
-      id: '1',
-      title: 'Wellness',
-      description: 'Safe workouts and yoga sessions tailored to pregnancy',
-      icon: require('../../assets/icons/1.png'),
-      category: 'HEALTH',
-    },
-    {
-      id: '2',
-      title: 'CheckList',
-      description:
-        'A comprehensive list with checkboxes, helping you to prepare',
-      icon: require('../../assets/icons/2.png'),
-      category: 'PLANNING',
-    },
-    {
-      id: '3',
-      title: 'Weight curve',
-      description: 'Log and follow your weight during pregnancy',
-      icon: require('../../assets/icons/3.png'),
-      category: 'BIRTH',
-    },
-    {
-      id: '4',
-      title: 'Sleep Tracker',
-      description: 'Monitor and improve your sleep patterns',
-      icon: require('../../assets/icons/4.png'),
-      category: 'BIRTH',
-    },
-    {
-      id: '5',
-      title: 'Nutrition Guide',
-      description: 'Healthy meal plans for pregnancy',
-      icon: require('../../assets/icons/5.png'),
-      category: 'HEALTH',
-    },
-    {
-      id: '6',
-      title: 'Contraction Timer',
-      description: 'Track contractions during labor',
-      icon: require('../../assets/icons/6.png'),
-      category: 'PLANNING',
-    },
-  ];
 
   const handleLike = id => {
     setLikedTools(prevState =>
@@ -79,6 +90,11 @@ const ToolsScreen = () => {
   const renderToolItem = ({item, hideDescription, smallSize}) => {
     const isLiked = likedTools.includes(item.id);
     return (
+      <TouchableOpacity activeOpacity={0.8} 
+         onPress={ () => {
+            navigation.navigate(item.screenName)
+         }}
+      >
       <View style={[styles.toolItem, smallSize && styles.smallToolItem]}>
         <View
           style={[
@@ -108,14 +124,16 @@ const ToolsScreen = () => {
                 ? require('../../assets/icons/red.png')
                 : require('../../assets/images/heart.png')
             }
-            style={styles.likeIcon}
+            style={[isLiked ? styles.likeIcon : styles.unlikeIcon]}
           />
         </TouchableOpacity>
       </View>
+      </TouchableOpacity>
     );
   };
 
   return (
+
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Tools</Text>
@@ -155,7 +173,7 @@ const ToolsScreen = () => {
             <Text
               style={[
                 styles.filterText,
-                selectedFilter === filter && styles.selectedFilterText,
+                selectedFilter === filter && styles.selectedFilterButton,
               ]}>
               {filter}
             </Text>
@@ -170,6 +188,7 @@ const ToolsScreen = () => {
           renderToolItem({item, hideDescription: false, smallSize: false})
         }
         keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
         style={styles.toolList}
       />
     </View>
@@ -185,62 +204,64 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.primary,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingVertical: verticalScale(15),
+    paddingHorizontal: horizontalScale(20),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     elevation: 3,
   },
   headerText: {
-    fontSize: RFValue(18),
-    fontWeight: '300',    
+    fontSize: RFValue(16 , height),
+    fontFamily: 'Montserrat Medium',
     flex: 1,
     textAlign: 'center',
   },
 
   favoriteTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-    marginTop: 20,
-    marginLeft: 17,
+    fontSize: RFValue(14 , height),
+    fontFamily: 'Montserrat Medium',
+    marginTop: verticalScale(20),
+    marginLeft: horizontalScale(17),
     color: '#333',
   },
   favoriteDesc: {
-    fontSize: 12,
+    fontSize: RFValue(12 , height),
     color: '#555',
-    margin: 20,
-    padding: 25,
+    margin: moderateScale(15),
+    padding: moderateScale(20),
     borderWidth: 1,
     borderColor: '#aaa',
     borderStyle: 'dotted',
     borderRadius: 5,
   },
   noFavoriteText: {
-    fontSize: 12,
+    fontSize: RFValue(12 , height),
     color: '#555',
     textAlign: 'center',
+    fontFamily: 'Montserrat Light',
+
   },
   favoriteListContainer: {
-    marginHorizontal: 20,
-    marginTop: 10,
+    marginHorizontal: horizontalScale(20),
+    marginTop: verticalScale(10),
   },
   toolList: {
-    marginTop: 10,
-    paddingVertical: 10,
+    marginTop: verticalScale(10),
+    paddingVertical: verticalScale(10),
   },
   toolItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 30,
-    margin: 10,
+    padding: moderateScale(30),
+    margin: moderateScale(10),
     backgroundColor: '#fff',
     borderRadius: 10,
   },
   smallToolItem: {
-    padding: 10,
-    marginVertical: 5,
-    height: 60,
+    padding: moderateScale(10),
+    marginVertical: verticalScale(5),
+    height: verticalScale(60),
   },
   iconContainer: {
     backgroundColor: colors.primary,
@@ -252,8 +273,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: horizontalScale(40),
+    height: horizontalScale(40),
     resizeMode: 'contain',
   },
   verticalLine: {
@@ -266,14 +287,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   toolTitle: {
-    fontSize: 19,
-    fontWeight: '500',
-    marginBottom: 5,
+    fontSize: RFValue(18 , height),
+    fontFamily:'Montserrat SemiBold',
+    marginBottom: verticalScale(5),
   },
   toolDescription: {
-    fontSize: 14,
+    fontSize: RFValue(14 , height),
+    fontFamily:'Montserrat -Regular',
     color: '#555',
-    marginTop: 5,
+    marginTop: verticalScale(5),
   },
   likeButton: {
     position: 'absolute',
@@ -284,6 +306,13 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     resizeMode: 'contain',
+    tintColor: colors.primary,
+  },
+  unlikeIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+    tintColor: '#000000',
   },
   filterBar: {
     flexDirection: 'row',
@@ -303,13 +332,10 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   filterText: {
-    fontSize: RFValue(12),
+    fontSize: RFValue(10),
   },
   selectedFilterButton: {
     backgroundColor: colors.primary,
-  },
-  selectedFilterText: {
-    color: '#fff',
   },
   smallIconContainer: {
     width: 50,
@@ -320,6 +346,6 @@ const styles = StyleSheet.create({
     height: 24,
   },
   smallToolTitle: {
-    fontSize: 14, // Adjust as needed
+    fontSize: 14, 
   },
 });

@@ -15,7 +15,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import { horizontalScale , moderateScale , verticalScale } from '../../helpers/Metrics';
 
 const {width} = Dimensions.get('window');
-const CARD_SIZE = width / 3.4; // Adjusted for better spacing
+const CARD_SIZE = width / 3.4; 
 
 const ArticlesScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -27,11 +27,8 @@ const ArticlesScreen = ({navigation}) => {
   const renderCategory = ({item}) => (
     <TouchableOpacity
       style={[styles.card, {width: CARD_SIZE, height: CARD_SIZE}]}
-      onPress={() => navigation.navigate(item.screenName, 
-        {title : item.title}
-      )}
-      >
-        
+      onPress={() => navigation.navigate(item.screenName, {title: item.title})}
+    >
       <Image source={item.icon} style={styles.icon} />
       <Text style={styles.cardText}>{item.title}</Text>
     </TouchableOpacity>
@@ -67,14 +64,22 @@ const ArticlesScreen = ({navigation}) => {
         <Text style={styles.title}>Articles</Text>
       </View>
 
-      {/* Articles Grid */}
-      <FlatList
-        data={filteredArticles}
-        renderItem={renderCategory}
-        keyExtractor={item => item.id}
-        numColumns={3}
-        contentContainerStyle={styles.grid}
-      />
+      {filteredArticles.length > 0 ? (
+        <FlatList
+          data={filteredArticles}
+          renderItem={renderCategory}
+          keyExtractor={item => item.id}
+          numColumns={3}
+          contentContainerStyle={styles.grid}
+          showsVerticalScrollIndicator={false}
+        />
+      ) : (
+        <View style={styles.noResultContainer}>
+          <Image source={require('../../assets/icons/search-engine.png')} style={styles.noResultIcon} />
+          <Text style={styles.noResultText}>No Results Found</Text>
+          <Text style={styles.suggestionText}>Try searching with a different keyword</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -97,10 +102,10 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: RFValue(16),
-    fontWeight: '300',
     color: '#000',
     flex: 1,
     textAlign: 'center',
+    fontFamily:'Montserrat Medium',
   },
   heartIcon: {
     width: horizontalScale(24),
@@ -118,10 +123,12 @@ const styles = StyleSheet.create({
     width: horizontalScale(20),
     height: horizontalScale(20),
     marginRight: 10,
+    tintColor: colors.primary,
   },
   searchInput: {
     flex: 1,
     fontSize: RFValue(12),
+    fontFamily:'Montserrat Regular',
   },
   grid: {
     paddingHorizontal: horizontalScale(10),
@@ -138,7 +145,7 @@ const styles = StyleSheet.create({
     margin: moderateScale(5),
   },
   icon: {
-  width: horizontalScale(40),
+    width: horizontalScale(40),
     height: horizontalScale(40),
     marginBottom: verticalScale(5),
   },
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
     fontSize: RFValue(10),
     textAlign: 'center',
     fontFamily: 'Montserrat',
+    
   },
   title: {
     fontSize: RFValue(18),
@@ -153,5 +161,26 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(15),
     marginLeft: horizontalScale(15),
     fontFamily: 'Montserrat Medium',
+  },
+  noResultContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: verticalScale(80),
+    tintColor: colors.primary
+  },
+  noResultIcon: {
+    width: horizontalScale(80),
+    height: horizontalScale(80),
+    marginBottom: verticalScale(10),
+    tintColor: colors.primary
+  },
+  noResultText: {
+    fontSize: RFValue(14),
+    fontWeight: 'Montserrat Bold',
+  },
+  suggestionText: {
+    fontSize: RFValue(12),
+    color: '#666',
+    marginTop: verticalScale(10),
   },
 });
