@@ -119,18 +119,18 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   title: {
-    fontSize: RFValue(20),
+    fontSize: RFValue(16),
     textAlign: 'center',
     marginTop: verticalScale(30),
     color: '#333',
-    fontFamily: 'Montserrat Bold',
+    fontFamily: 'Montserrat-Bold',
   },
   description: {
     fontSize: RFValue(12),
     textAlign: 'center',
     marginTop: verticalScale(10),
     color: '#555',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat-Regular',
   },
   buttonContainer: {
     marginTop: verticalScale(20),
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: RFValue(10),
+    fontFamily: 'Montserrat-Medium',
   },
 });
 
