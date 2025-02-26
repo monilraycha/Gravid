@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     padding: horizontalScale(20),
-    marginTop: verticalScale(50),
+    marginTop: verticalScale(70),
     alignItems: 'flex-start',
   },
   title: {
@@ -144,12 +144,11 @@ const styles = StyleSheet.create({
     lineHeight: verticalScale(24),
     textAlign: 'left',
     marginBottom: verticalScale(10),
-    fontFamily: 'Montserrat ExtraLight',
+    fontFamily: 'Montserrat-Regular',
   },
   highlights: {
     fontSize: RFValue(14),
     color: '#000000',
-    // fontWeight: 'bold',
     marginBottom: verticalScale(30),
     fontFamily: 'Montserrat Medium',
   },

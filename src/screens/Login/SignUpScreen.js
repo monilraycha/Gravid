@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,16 +6,23 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-} from 'react-native';
+  Dimensions
+} from "react-native";
 
-import CommonButton from '../../components/CommonButton';
-import colors from '../../constants/color';
-import { moderateScale, horizontalScale, verticalScale } from '../../helpers/Metrics';
-import { RFValue } from 'react-native-responsive-fontsize';
+import CommonButton from "../../components/CommonButton";
+import colors from "../../constants/color";
+import {
+  moderateScale,
+  horizontalScale,
+  verticalScale,
+} from "../../helpers/Metrics";
+import { RFValue } from "react-native-responsive-fontsize";
+
+const {height} = Dimensions.get('window');
 
 const SignUpScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isCheckedTerms, setIsCheckedTerms] = useState(false);
   const [isCheckedPrivacy, setIsCheckedPrivacy] = useState(false);
 
@@ -29,13 +36,15 @@ const SignUpScreen = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  const isFormValid = email !== '' && password !== '' && isCheckedTerms && isCheckedPrivacy;
+  const isFormValid =
+    email !== "" && password !== "" && isCheckedTerms && isCheckedPrivacy;
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
       <Text style={styles.description}>
-        Create an account to avoid the risk of losing your data when you change your phone
+        Create an account to avoid the risk of losing your data when you change
+        your phone
       </Text>
 
       <View style={styles.inputContainer}>
@@ -61,10 +70,11 @@ const SignUpScreen = ({ navigation }) => {
           {renderCheckbox(
             isCheckedTerms,
             () => setIsCheckedTerms(!isCheckedTerms),
-            require('../../assets/images/check.png'),
+            require("../../assets/images/check.png")
           )}
           <Text style={styles.checkboxText}>
-            I give consent to the processing of my health data, such as the expected due date.
+            I give consent to the processing of my health data, such as the
+            expected due date.
           </Text>
         </View>
 
@@ -72,39 +82,42 @@ const SignUpScreen = ({ navigation }) => {
           {renderCheckbox(
             isCheckedPrivacy,
             () => setIsCheckedPrivacy(!isCheckedPrivacy),
-            require('../../assets/images/check.png'),
+            require("../../assets/images/check.png")
           )}
           <Text style={styles.checkboxText}>
-            I want newsletters with tips, information and offers during my pregnancy.
+            I want newsletters with tips, information and offers during my
+            pregnancy.
           </Text>
         </View>
       </View>
 
       <Text style={styles.termsText}>
-        By continuing I agree to the
+        By continuing I agree to the {''}
         <Text
           style={styles.linkText}
-          onPress={() => alert('Terms of Use clicked')}>
+          onPress={() => alert("Terms of Use clicked")}
+        >
           Terms of Use
         </Text>
-          <Text> and </Text>
+        <Text> and </Text>
         <Text
           style={styles.linkText}
-          onPress={() => alert('Privacy Policy clicked')}>
+          onPress={() => alert("Privacy Policy clicked")}
+        >
           Privacy Policy
         </Text>
       </Text>
 
       <CommonButton
         title="CREATE ACCOUNT"
-        onPress={() => navigation.navigate('LoginScreen')}
+        onPress={() => navigation.navigate("LoginScreen")}
         filled={isFormValid}
         style={[
           styles.button,
-          { backgroundColor: isFormValid ? '#F88C8C' : '#D9D9D9' },
+          { backgroundColor: isFormValid ? "#F88C8C" : "#D9D9D9" },
         ]}
         textStyle={{
-          color: isFormValid ? '#000000' : '#ffffff',
+          color: isFormValid ? "#000000" : "#ffffff",
         }}
         disabled={!isFormValid}
       />
@@ -122,15 +135,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   title: {
-    fontSize: RFValue(24),
-    fontWeight: 'bold',
+    fontSize: RFValue(22 , height),
+    fontFamily:"Montserrat Bold",
+    fontWeight:"600",
     marginBottom: verticalScale(10),
-    alignSelf: 'center',
+    alignSelf: "center",
+
   },
   description: {
-    fontSize: RFValue(16),
+    fontSize: RFValue(14 , height),
     marginBottom: verticalScale(20),
     marginTop: verticalScale(10),
+    fontFamily:'Montserrat'
   },
   inputContainer: {
     marginBottom: verticalScale(20),
@@ -138,27 +154,29 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     padding: moderateScale(15),
     borderRadius: moderateScale(8),
     marginBottom: verticalScale(15),
-    fontSize: RFValue(14),
+    fontSize: RFValue(14 , height),
     marginTop: verticalScale(10),
   },
   checkboxWrapper: {
     marginTop: verticalScale(10),
   },
   checkboxItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: '100%',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
     marginBottom: verticalScale(15),
   },
   checkboxText: {
     marginLeft: horizontalScale(10),
-    fontSize: RFValue(16),
+    fontSize: RFValue(12 , height),
     flexShrink: 1,
+    fontFamily:'Montserrat'
+
   },
   checkboxContainer: {
     marginTop: verticalScale(5),
@@ -169,31 +187,34 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(15),
     borderWidth: moderateScale(3),
     borderColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
   },
   checkboxChecked: {
-    backgroundColor:colors.primary,
+    backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
   checkmarkImage: {
     width: moderateScale(18),
     height: moderateScale(18),
-    tintColor: 'white',
+    tintColor: "white",
   },
   button: {
     marginTop: verticalScale(20),
-    width: '100%',
+    width: "100%",
   },
   termsText: {
-    fontSize: RFValue(14),
-    color: '#000',
+    fontSize: RFValue(14 , height),
+    color: "#000",
     marginTop: verticalScale(10),
+    fontFamily:'Montserrat'
+
   },
   linkText: {
-    color: '#0000EE',
-    textDecorationLine: 'underline',
-    fontWeight: 'bold',
+    color: "#0000EE",
+    textDecorationLine: "underline",
+    fontFamily:'Montserrat',
+    fontSize: RFValue(14 , height),
   },
 });

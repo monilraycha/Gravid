@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.1.1",
     "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/template": "0.77.0",
     "@react-native/gradle-plugin": "^0.77.0",
@@ -22,8 +23,10 @@
     "react": "18.3.1",
     "react-native": "0.77.0",
     "react-native-animatable": "^1.4.0",
+    "react-native-calendars": "^1.1309.1",
     "react-native-check-box": "^2.1.7",
     "react-native-gesture-handler": "^2.23.1",
+    "react-native-paper": "^5.13.1",
     "react-native-reanimated": "^3.16.7",
     "react-native-reanimated-carousel": "^3.5.1",
     "react-native-responsive-fontsize": "^0.5.1",
@@ -33,7 +36,8 @@
     "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "^15.11.1",
     "react-native-vector-icons": "^10.2.0",
-    "react-native-video": "^6.10.0"
+    "react-native-video": "^6.10.1",
+    "react-native-video-player": "^0.16.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

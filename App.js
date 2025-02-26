@@ -15,7 +15,7 @@ const MainApp = () => {
       )}
 
       <StatusBar
-        barStyle="light-content"
+        barStyle="dark-content"
         backgroundColor={colors.primary}  // Works on Android
         translucent={Platform.OS === 'ios'} // Make translucent on iOS
       />

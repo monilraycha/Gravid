@@ -1,6 +1,8 @@
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import colors from '../constants/color';
+import { horizontalScale , verticalScale } from '../helpers/Metrics';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const CommonButton = ({
   title = '',
@@ -30,10 +32,10 @@ export default CommonButton;
 const styles = StyleSheet.create({
   button: {
     width: '90%',
-    paddingVertical: 15,
+    paddingVertical: verticalScale(15),
     borderRadius: 30,
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: verticalScale(10),
   },
   filledButton: {
     backgroundColor: colors.primary,
@@ -44,13 +46,13 @@ const styles = StyleSheet.create({
   },
   filledText: {
     color: '#333',
-    fontWeight: 'bold',
     letterSpacing: 1,
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat Medium',
   },
   outlinedText: {
     color: '#333',
-    fontWeight: 'bold',
     letterSpacing: 1,
+    fontFamily: 'Montserrat Medium',
+
   },
 });

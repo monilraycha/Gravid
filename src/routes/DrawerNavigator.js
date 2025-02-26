@@ -1,15 +1,15 @@
 import { horizontalScale , verticalScale , moderateScale } from '../helpers/Metrics';
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView , StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView , Dimensions } from 'react-native';
 import colors from '../constants/color';
 import TabsNavigator from './TabsNavigator';
 import { SafeAreaView , SafeAreaProvider } from 'react-native-safe-area-context';
-
-
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const Drawer = createDrawerNavigator();
 
+const {width , height} = Dimensions.get('window');
 
 const CustomDrawerContent = ({ navigation }) => {
   return (
@@ -132,11 +132,9 @@ const styles = StyleSheet.create({
     padding: moderateScale(20),
     backgroundColor: colors.primary,
   },
-  closeButton: {
-    fontSize: moderateScale(20),
-  },
   headerTitle: {
-    fontSize: moderateScale(16),
+    fontSize: RFValue(16, height),
+    fontFamily: 'Montserrat Medium',
   },
   closeIcon: {
     width: horizontalScale(24),
@@ -144,7 +142,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   loginButton: {
-    fontSize: moderateScale(16),
+    fontSize: RFValue(16, height),
+    fontFamily: 'Montserrat Medium',
   },
   scrollView: {
     flex: 1,
@@ -161,66 +160,63 @@ const styles = StyleSheet.create({
     width: horizontalScale(100),
     height: horizontalScale(100),
     borderRadius: horizontalScale(50),
-    backgroundColor: '#f0f0f0', 
+    backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative', 
+    position: 'relative',
   },
   roundBackgroundChild: {
     width: horizontalScale(100),
     height: horizontalScale(100),
     borderRadius: horizontalScale(50),
-    backgroundColor: '#f9a4a4', 
+    backgroundColor: '#f9a4a4',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative', 
+    position: 'relative',
   },
   profileIcon: {
     width: horizontalScale(60),
-    height: verticalScale(60),
+    height: horizontalScale(60),
   },
   roundBadge: {
     position: 'absolute',
-    top: 0, 
-    right: 0, 
+    top: 0,
+    right: 0,
     width: horizontalScale(25),
-    height: horizontalScale(25), 
-    borderRadius: horizontalScale(12.5), 
+    height: horizontalScale(25),
+    borderRadius: horizontalScale(12.5),
     backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  badgeText: {
-    fontSize: moderateScale(16),
-  },
   profileText: {
     marginTop: verticalScale(10),
-    fontSize: moderateScale(10),
-    fontWeight: moderateScale(500),
+    fontSize: RFValue(10, height),
     letterSpacing: moderateScale(1),
+    fontFamily: 'Montserrat -SemiBold',
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: verticalScale(15),
     borderTopWidth: moderateScale(2),
-    borderTopColor: '#f9a4a4',
+    borderTopColor: '#fbbcbc',
     width: '100%',
     paddingVertical: verticalScale(20),
   },
   menuIcon: {
-    width:  horizontalScale(25),
-    height:  horizontalScale(25),
+    width: horizontalScale(25),
+    height: horizontalScale(25),
     marginLeft: horizontalScale(15),
   },
   menuText: {
-    fontSize: moderateScale(16),
+    fontSize: RFValue(16, height),
     marginLeft: horizontalScale(15),
-    fontWeight: moderateScale(500),
+    fontFamily: 'Montserrat Regular',
   },
   arrowIcon: {
     width: horizontalScale(24),
-     height: horizontalScale(24),
+    height: horizontalScale(24),
     position: 'absolute',
     right: horizontalScale(15),
   },
@@ -230,14 +226,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
   },
   footerLogo: {
-    fontSize: moderateScale(30),
-    fontWeight: moderateScale(500),
+    fontSize: RFValue(30, height),
+    fontWeight: '500',
     color: colors.primary,
+    fontFamily: 'Montserrat -SemiBold',
   },
   footerVersion: {
-    fontSize: moderateScale(12),
+    fontSize: RFValue(12, height),
     color: '#666',
     marginTop: verticalScale(15),
+    fontFamily: 'Montserrat -Regular',
   },
   footerLinks: {
     flexDirection: 'row',
@@ -245,13 +243,14 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10),
   },
   footerLink: {
-    fontSize: moderateScale(14),
+    fontSize: RFValue(14, height),
     color: colors.primary,
     marginHorizontal: horizontalScale(5),
     textDecorationLine: 'underline',
+    fontFamily: 'Montserrat -Regular',
   },
   footerDivider: {
-    fontSize: moderateScale(12),
+    fontSize: RFValue(12, height),
     color: '#666',
   },
 });

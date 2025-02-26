@@ -6,52 +6,46 @@ import {
   Image,
   FlatList,
   Dimensions,
-  Platform,
-} from 'react-native';
-import React, {useRef, useState} from 'react';
-import Video from 'react-native-video';
-import colors from '../../constants/color';
-import PlayContent from '../../helpers/PlayContent';
-import videoData from '../../helpers/VideoData';
-import { RFValue } from 'react-native-responsive-fontsize';
-
-const {width} = Dimensions.get('window');
+} from "react-native";
+import React, { useRef, useState } from "react";
+import VideoPlayer from "react-native-video-player";
+import colors from "../../constants/color";
+import {PlayContent , PlayImageData} from "../../helpers/PlayContent";
+import videoData from "../../helpers/VideoData";
+import { RFValue } from "react-native-responsive-fontsize";
+import {
+  moderateScale,
+  horizontalScale,
+  verticalScale,
+} from "../../helpers/Metrics";
+const { width, height } = Dimensions.get("window");
 const CARD_SIZE = width / 3.4;
 
-const imageData = [
-  {id: '1', image: require('../../assets/images/welcome-image-1.jpg')},
-  {id: '2', image: require('../../assets/images/welcome-image-2.jpg')},
-  {id: '3', image: require('../../assets/images/welcome-image-3.jpg')},
-];
 
-const PlayScreen = () => {
+const PlayScreen = ({ navigation }) => {
+  const playerRef = useRef(null);
   const [index, setIndex] = useState(0);
-  const [playingVideo, setPlayingVideo] = useState(null);
   const videoRefs = useRef([]);
 
-  const onViewableItemsChanged = React.useCallback(({viewableItems}) => {
+  const onViewableItemsChanged = React.useCallback(({ viewableItems }) => {
     if (viewableItems.length > 0) {
       setIndex(viewableItems[0].index);
     }
   }, []);
 
-  const viewabilityConfig = {viewAreaCoveragePercentThreshold: 50};
-
-  const togglePlayPause = id => {
-    setPlayingVideo(playingVideo === id ? null : id);
-  };
+  const viewabilityConfig = { viewAreaCoveragePercentThreshold: 50 };
 
   const renderDots = () => {
     return (
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        {imageData.map((_, i) => (
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        {PlayImageData.map((_, i) => (
           <View
             key={i}
             style={{
               width: 9,
               height: 9,
               borderRadius: 10,
-              backgroundColor: i === index ? '#F88C8C' : '#D9D9D9',
+              backgroundColor: i === index ? "#F88C8C" : "#D9D9D9",
               margin: 10,
             }}
           />
@@ -65,19 +59,19 @@ const PlayScreen = () => {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Play</Text>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Image
-            source={require('../../assets/images/search-interface-symbol.png')}
+            source={require("../../assets/images/search-interface-symbol.png")}
             style={styles.searchIcon}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
-  
+
       {/* FlatList for all content */}
       <FlatList
-        data={[imageData, PlayContent, videoData]}  // Nested data, multiple sections
+        data={[PlayImageData, PlayContent, videoData]} // Nested data, multiple sections
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item, index}) => {
+        renderItem={({ item, index }) => {
           if (index === 0) {
             return (
               <View style={styles.carouselContainer}>
@@ -88,13 +82,30 @@ const PlayScreen = () => {
                   showsHorizontalScrollIndicator={false}
                   onViewableItemsChanged={onViewableItemsChanged}
                   viewabilityConfig={viewabilityConfig}
-                  keyExtractor={item => item.id}
-                  renderItem={({item}) => (
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
                     <View style={styles.slide}>
-                      <Image source={item.image} style={styles.image} />
+                      <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => {
+                          if (item.title) {
+                            navigation.navigate(item.screenName, {
+                              title: item.title,
+                              image:item.image
+                            });
+                          }
+                        }}
+                      >
+                        <Image source={item.image} style={styles.image} />
+                        <Text style={styles.imageTitle}>{item.title}</Text>
+                        <Text style={styles.imgDescription}>
+                          {item.description}
+                        </Text>
+                      </TouchableOpacity>
                     </View>
                   )}
                 />
+
                 {renderDots()}
               </View>
             );
@@ -105,14 +116,19 @@ const PlayScreen = () => {
                 <Text style={styles.bodyTitle}>BROWSE ALL CONTENT</Text>
                 <FlatList
                   data={item} // Browse all content
-                  renderItem={({item}) => (
+                  renderItem={({ item }) => (
                     <TouchableOpacity
-                      style={[styles.card, {width: CARD_SIZE, height: CARD_SIZE}]}>
+                      style={[
+                        styles.card,
+                        { width: CARD_SIZE, height: CARD_SIZE },
+                      ]}
+                      onPress={() => navigation.navigate(item.screenName, {title: item.title})}
+                    >
                       <Image source={item.image} style={styles.cardImage} />
                       <Text style={styles.cardTitle}>{item.title}</Text>
                     </TouchableOpacity>
                   )}
-                  keyExtractor={item => item.id}
+                  keyExtractor={(item) => item.id}
                   numColumns={3}
                   contentContainerStyle={styles.grid}
                 />
@@ -121,57 +137,31 @@ const PlayScreen = () => {
           }
           if (index === 2) {
             return (
-              <View>
-                <Text style={styles.bodyTitle}>POPULAR RIGHT NOW</Text>
+              // <---- ADD RETURN HERE
+              <View style={styles.VideoContainer}>
+                <Text style={styles.VideoTitle}>POPULAR RIGHT NOW</Text>
                 <FlatList
-                  data={item} // Popular videos
-                  renderItem={({item}) => (
-                    <View style={styles.videoCard}>
-                      <TouchableOpacity
-                        style={styles.videoContainer}
-                        onPress={() => togglePlayPause(item.id)}>
-                        <Video
-                          source={{uri: item.uri}}
-                          ref={ref => (videoRefs.current[item.id] = ref)}
-                          style={styles.video}
-                          paused={playingVideo !== item.id}
-                          resizeMode="cover"
-                          repeat
-                        />
-                        {/* Thumbnail Overlay */}
-                        {playingVideo !== item.id && (
-                          <Image source={item.thumbnail} style={styles.thumbnail} />
-                        )}
-                        {/* Transparent Circular Play Button */}
-                        {playingVideo !== item.id && (
-                          <TouchableOpacity
-                            style={styles.playButton}
-                            onPress={() => togglePlayPause(item.id)}>
-                            <View>
-                              <Image
-                                source={require('../../assets/icons/play-button.png')}
-                                style={styles.playIcon}
-                              />
-                            </View>
-                          </TouchableOpacity>
-                        )}
-                        {/* Video Duration */}
-                        <View style={styles.durationContainer}>
-                          <Text style={styles.videoDuration}>{item.duration}</Text>
-                        </View>
-                      </TouchableOpacity>
-                      {/* Video Info */}
-                      <View style={styles.videoDetails}>
-                        <Text style={styles.videoDescription}>{item.description}</Text>
-                        <Text style={styles.videoTitle}>{item.title}</Text>
-                      </View>
+                  data={item} // Videos
+                  horizontal
+                  keyExtractor={(item) => item.id}
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                    <View style={styles.VideoCard}>
+                      <VideoPlayer
+                        ref={playerRef}
+                        endWithThumbnail
+                        thumbnail={{ uri: item.thumbnail }}
+                        source={{ uri: item.videoUri }}
+                        onError={(e) => console.log(e)}
+                        showDuration={true}
+                        style={styles.videoPlayer}
+                      />
+                      <Text style={styles.titleVideo}>{item.title}</Text>
+                      <Text style={styles.descriptionVideo}>
+                        {item.description}
+                      </Text>
                     </View>
                   )}
-                  keyExtractor={item => item.id}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{paddingHorizontal: 10}}
-                  nestedScrollEnabled
                 />
               </View>
             );
@@ -179,11 +169,11 @@ const PlayScreen = () => {
         }}
         ListHeaderComponent={() => null}
         showsVerticalScrollIndicator={false}
+        bounces={false}
       />
     </View>
   );
 };
-
 
 export default PlayScreen;
 
@@ -194,108 +184,131 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors.primary,
-    padding: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  scrollContent: {
-    flexGrow: 1,
+    padding: moderateScale(15),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   headerTitle: {
-    fontSize: RFValue(18),
-    fontWeight: '300',
-    color: '#000',
+    fontSize: RFValue(16, height),
+    fontFamily: "Montserrat Medium",
+    color: "#000",
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
-  searchIcon: {width: 24, height: 24},
-  carouselContainer: {width: '100%', height: 300},
-  slide: {width, alignItems: 'center'},
-  image: {width, height: 300, resizeMode: 'cover'},
-  body: {padding: 10},
-  bodyTitle: {fontSize: 17, color: '#333', marginLeft: 20, marginVertical: 10},
-  grid: {paddingHorizontal: 10, paddingTop: 15},
+  searchIcon: {
+    width: horizontalScale(20),
+    height: horizontalScale(20),
+  },
+  carouselContainer: {
+    width: "100%",
+    height: verticalScale(300),
+    position: "relative",
+  },
+  slide: {
+    width,
+    alignItems: "center",
+  },
+  image: {
+    flex: 1,
+    width,
+    height: verticalScale(250),
+    resizeMode: "cover",
+  },
+  imageTitle: {
+    fontSize: RFValue(16, height),
+    fontFamily: "Montserrat-ExtraBold",
+    marginLeft: horizontalScale(5),
+    position: "absolute",
+    bottom: "13%",
+    left: "2%",
+    color: colors.white,
+  },
+  imgDescription: {
+    fontSize: RFValue(14, height),
+    fontFamily: "Montserrat Medium",
+    marginLeft: horizontalScale(10),
+    position: "absolute",
+    bottom: "5%",
+    left: "2%",
+    color: colors.white,
+  },
+  body: {
+    padding: moderateScale(10),
+  },
+  bodyTitle: {
+    fontSize: RFValue(15, height),
+    fontFamily: "Montserrat Medium",
+    color: "#333",
+    marginLeft: horizontalScale(10),
+    marginVertical: verticalScale(10),
+  },
+  grid: {
+    paddingHorizontal: horizontalScale(10),
+    paddingTop: verticalScale(15),
+  },
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
+    backgroundColor: "#fff",
+    borderRadius: moderateScale(10),
+    alignItems: "center",
+    justifyContent: "center",
+    margin: moderateScale(5),
   },
-  cardImage: {width: 40, height: 40, marginBottom: 5},
-  cardTitle: {fontSize: 12, color: '#333' , textAlign: 'center'},
-  videoCard: {
-    width: width * 0.7,
-    margin: 10,
-    backgroundColor: '#fff', // White background
-    borderRadius: 10,
-    paddingBottom: 15, // Spacing for text
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+  cardImage: {
+    width: horizontalScale(40),
+    height: horizontalScale(40),
+    marginBottom: verticalScale(5),
+  },
+  cardTitle: {
+    fontSize: RFValue(12, height),
+    fontFamily: "Montserrat Medium",
+    color: "#333",
+    textAlign: "center",
+  },
+  VideoContainer: {
+    // padding: moderateScale(15),
+    paddingLeft: horizontalScale(10),
+    marginTop: verticalScale(10),
+  },
+  VideoTitle: {
+    marginBottom: verticalScale(10),
+    marginRight: horizontalScale(10),
+    fontSize: RFValue(15, height),
+    fontFamily: "Montserrat Medium",
+    color: "#333",
+  },
+  VideoCard: {
+    width: horizontalScale(250),
+    marginRight: horizontalScale(15),
+    backgroundColor: "#fff",
+    borderRadius: moderateScale(10),
+    paddingBottom: verticalScale(30),
+    marginBottom: verticalScale(10),
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 6,
+    elevation: 8,
+    overflow: "hidden",
   },
-
-  videoContainer: {
-    height: 180,
-    borderTopLeftRadius: 10, // Ensure rounded top corners
-    borderTopRightRadius: 10,
-    overflow: 'hidden', // Prevents video overflow
-    backgroundColor: '#000',
+  titleVideo: {
+    fontSize: RFValue(16, height),
+    marginTop: verticalScale(10),
+    marginBottom: verticalScale(5),
+    color: "gray",
+    marginLeft: horizontalScale(15),
+    fontFamily: "Montserrat Medium",
   },
-
-  video: {
-    width: '100%',
-    height: '100%',
+  descriptionVideo: {
+    fontSize: RFValue(14, height),
+    marginBottom: verticalScale(5),
+    marginLeft: horizontalScale(15),
+    fontFamily: "Montserrat Regular",
   },
-
-  thumbnail: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-
-  playButton: {
-    position: 'absolute',
-    alignSelf: 'center',
-    top: '40%',
-  },
-
-  playIcon: {
-    width: 50,
-    height: 50,
-    tintColor: 'white',
-  },
-
-  durationContainer: {
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    paddingVertical: 4,
-    paddingHorizontal: 6,
-    borderRadius: 5,
-  },
-
-  videoDuration: {
-    fontSize: 12,
-    color: '#FFF',
-    fontWeight: 'bold',
-  },
-
-  videoTitle: {
-    fontSize: 16,
-    marginLeft: 10,
-    marginTop: 10,
-  },
-
-  videoDescription: {
-    fontSize: 14,
-    color: 'grey',
-    marginTop: 5,
-    marginLeft: 10,
-    flexWrap: 'wrap',
-    width: '90%',
+  videoPlayer: {
+    width: "100%",
+    height: verticalScale(180),
+    borderTopLeftRadius: moderateScale(10),
+    borderTopRightRadius: moderateScale(10),
   },
 });

@@ -1,28 +1,22 @@
 const videoData = [
-    {
-      id: '1',
-      uri: 'https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
-      thumbnail: require('../assets/images/welcome-image-1.jpg'),
-      title: 'Exciting Video',
-      description: 'THIS IS AN AWESOME VIDEO THAT ...',
-      duration: '2:08',
-    },
-    {
-      id: '2',
-      uri: 'https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
-      thumbnail: require('../assets/images/welcome-image-2.jpg'),
-      title: 'Another Cool Clip',
-      description: 'CHECK OUT THIS AMAZING VIDEO!',
-      duration: '3:15',
-    },
-    {
-      id: '3',
-      uri: 'https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
-      thumbnail: require('../assets/images/welcome-image-3.jpg'),
-      title: 'Must Watch!',
-      description: 'DON’T MISS THIS INCREDIBLE CONTENT.',
-      duration: '1:45',
-    },
-  ];
+  {
+    id: "1",
+    title: "Big Buck Bunny",
+    description: "A fun animated video.",
+    thumbnail:
+      "https://fastly.picsum.photos/id/1019/200/300.jpg?hmac=HLUPqgTMOzQ6-GDkgZZ3NXQqJyl5m6iX_MXvS3Xqt3Q",
+    videoUri:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  },
+  {
+    id: "2",
+    title: "Elephant Dream",
+    description: "An animated short film.",
+    thumbnail:
+      "https://fastly.picsum.photos/id/371/200/200.jpg?hmac=VShu_HdkBA6-hi8lkHlFMbkqxiu0BgA4mvEKoJke228",
+    videoUri:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+  },
+];
 
-  export default videoData;
+export default videoData;

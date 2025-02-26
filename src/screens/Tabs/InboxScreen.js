@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import React, { version } from 'react';
 import colors from '../../constants/color';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { horizontalScale, verticalScale } from '../../helpers/Metrics';
 
 
 const InboxScreen = ({ navigation }) => {
@@ -45,9 +46,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 15,
+    paddingHorizontal: horizontalScale(20),
     backgroundColor: colors.primary,
-    paddingVertical: 20,
+    paddingVertical: verticalScale(15),
   },
   closeIcon: {
     width: 24,

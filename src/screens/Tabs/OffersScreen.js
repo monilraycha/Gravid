@@ -1,9 +1,18 @@
-import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
-import React from 'react';
-import colors from '../../constants/color';
-import { RFValue } from 'react-native-responsive-fontsize';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
+import colors from "../../constants/color";
+import { RFValue } from "react-native-responsive-fontsize";
+import { ScrollView } from "react-native-gesture-handler";
+import { horizontalScale , moderateScale, verticalScale } from "../../helpers/Metrics";
 
-const {width} = Dimensions.get('window'); // Get screen width
+const { width , height } = Dimensions.get("window"); // Get screen width
 
 const OffersScreen = () => {
   return (
@@ -11,9 +20,11 @@ const OffersScreen = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Offers</Text>
       </View>
-      <View style={styles.card}>
+     
+      <ScrollView showsVerticalScrollIndicator={false}>
+      <TouchableOpacity style={styles.card}>
         <Image
-          source={require('../../assets/images/prmother.jpg')}
+          source={require("../../assets/images/prmother.jpg")}
           style={styles.image}
         />
 
@@ -27,7 +38,27 @@ const OffersScreen = () => {
           FREE WEEK TRIAL of the ultimate health and wellness program by signing
           up today!
         </Text>
-      </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.card}>
+        <Image
+          source={require("../../assets/images/podcastw.jpg")}
+          style={styles.image}
+        />
+
+        <Text style={styles.title}>
+           Limited access for a month and tailored workouts 
+        </Text>
+
+        <Text style={styles.description}>
+          Enjoy secure workout routines, including yoga sessions designed
+          specifically for pregnancy. Dive into a world of self-care with our
+          FREE WEEK TRIAL of the ultimate health and wellness program by signing
+          up today!
+        </Text>
+      </TouchableOpacity>
+      
+      </ScrollView>
+
     </View>
   );
 };
@@ -37,56 +68,59 @@ export default OffersScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: colors.background,
+    paddingBottom: verticalScale(20),
   },
   header: {
     backgroundColor: colors.primary,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    paddingVertical: verticalScale(15),
+    paddingHorizontal: horizontalScale(20),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     elevation: 3,
   },
   headerText: {
-    fontSize: RFValue(18),
-    fontWeight: '300',
+    fontSize: RFValue(16),
+    fontFamily: "Montserrat Medium",
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
   card: {
-    width: width - 40, 
-    marginTop: 15,
-    backgroundColor: '#ffffff',
-    borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
+    width: width - 40,
+    marginTop: verticalScale(20),
+    backgroundColor: "#ffffff",
+    borderRadius: moderateScale(20),
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    elevation: 8, 
-    alignItems: 'center', 
-    overflow: 'hidden', 
+    elevation: 8,
+    alignItems: "center",
+    overflow: "hidden",
   },
   image: {
-    width: width - 40, 
-    height: 230,
-    borderTopLeftRadius: 10, 
-    borderTopRightRadius: 10, 
+    width: width - 40,
+    height: moderateScale(200),
+    borderTopLeftRadius: moderateScale(10),
+    borderTopRightRadius: moderateScale(10),
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'left', 
-    padding:10
+    fontSize: RFValue(16 , height),
+    fontFamily: "Montserrat Medium",
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "left",
+    padding: moderateScale(10),
   },
   description: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
-    textAlign: 'left', 
-    padding:10,
-    marginBottom: 10,
+    fontSize: RFValue(12 , height),
+    fontFamily: "Montserrat Regular",
+    color: "#666",
+    lineHeight: moderateScale(20),
+    textAlign: "left",
+    padding: moderateScale(10),
+    marginBottom: verticalScale(20),
   },
 });

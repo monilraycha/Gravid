@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(60),
   },
   title: {
-    fontSize: RFValue(25),
-    fontWeight: 'bold',
+    fontSize: RFValue(22),
+    fontFamily: 'Montserrat-Bold',
     alignSelf: 'flex-start',
-    marginBottom: verticalScale(40),
+    marginBottom: verticalScale(25),
     color: '#333',
   },
   input: {
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     fontSize: RFValue(13),
     width: '100%',
     marginTop: verticalScale(10),
+    fontFamily: 'Montserrat-Regular',
   },
   forgotPassword: {
     alignSelf: 'flex-start',
@@ -98,8 +99,8 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     fontSize: RFValue(12),
-    fontFamily: 'Open Sans Condensed Italic',
     letterSpacing: 1,
+    fontFamily: 'Montserrat-Italic',
   },
   buttonCss: {
     position: 'absolute',

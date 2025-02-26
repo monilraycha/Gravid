@@ -75,10 +75,9 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(15),
   },
   question: {
-    fontSize: RFValue(16),
-    fontWeight: '600',
-    color: '#333',
-    fontFamily: 'Montserrat Light',
+    fontSize: RFValue(14),
+    fontWeight: '400',
+    fontFamily: 'Montserrat',
   },
   checkboxContainer: {
     marginTop: verticalScale(25),
@@ -107,8 +106,8 @@ const styles = StyleSheet.create({
     tintColor: 'white',
   },
   checkboxText: {
-    fontSize: RFValue(16),
-    fontFamily: 'Montserrat Light',
+    fontSize: RFValue(14),
+    fontFamily: 'Montserrat',
   },
   horizontalLine: {
     height: verticalScale(1),

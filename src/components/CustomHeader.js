@@ -27,7 +27,8 @@ const CustomHeader = ({ navigation, title }) => (
           flex: 1,
           textAlign: 'center',
           fontSize: RFValue(30),
-          fontWeight: 'bold',
+          fontFamily:'Montserrat Bold',
+          fontWeight:"600",
           color: colors.primary,
         }}>
         {title}

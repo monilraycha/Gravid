@@ -120,26 +120,27 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   title: {
-    fontSize: RFValue(24),
-    fontWeight: 'bold',
+    fontSize: RFValue(22),
+    fontFamily: 'Montserrat-Bold',
     marginBottom: verticalScale(10),
   },
   titleReduced: {
-    fontSize: RFValue(18), 
+    fontSize: RFValue(16), 
     opacity: 0.6, 
     fontWeight: 'normal',
   },
   description: {
-    fontSize: RFValue(16),
+    fontSize: RFValue(14),
     marginBottom: verticalScale(20),
     marginTop: verticalScale(10),
+    fontFamily: 'Montserrat-Medium',
   },
   checkboxContainer: {
     marginTop: verticalScale(25),
   },
   question: {
     fontSize: RFValue(16),
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat-Regular',
   },
   checkboxItem: {
     flexDirection: 'row',
@@ -149,6 +150,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: RFValue(14),
     marginTop: verticalScale(25),
+    fontFamily: 'Montserrat-Regular',
   },
   checkbox: {
     width: horizontalScale(30),
