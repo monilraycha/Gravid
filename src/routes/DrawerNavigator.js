@@ -26,7 +26,8 @@ const CustomDrawerContent = ({ navigation }) => {
           <Text style={styles.loginButton}>LOG IN</Text>
         </TouchableOpacity>
       </View>
-
+     
+     
       {/* Scrollable Content */}
       <ScrollView style={styles.scrollView}>
         {/* Profile Section */}
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: verticalScale(15),
     borderTopWidth: moderateScale(2),
-    borderTopColor: '#fbbcbc',
+    borderTopColor: '#FFD6D7',
     width: '100%',
     paddingVertical: verticalScale(20),
   },

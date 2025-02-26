@@ -64,7 +64,11 @@ import Exclusive2 from "../screens/Playtab/Playlists/Exclusive2";
 import CheckList from "../screens/Tools/CheckList";
 import Calender from "../screens/Tools/Calender";
 import Nutrition from "../screens/Tools/Nutrition";
-import SymptomChecker from "../screens/Tools/SymptomChecker";
+import Resources from "../screens/Tools/Resources";
+import Vaccination from "../screens/Tools/Vaccination";
+import Vaccination1 from "../screens/Tools/Vaccination1";
+import Vaccination2 from "../screens/Tools/Vaccination2";
+import DateOfVaccination from "../screens/Tools/DateOfVaccination";
 
 const Stack = createStackNavigator();
 
@@ -440,10 +444,32 @@ const AppNavigator = () => {
         />
 
          <Stack.Screen
-         name="SymptomChecker"
-         component={SymptomChecker}
+         name="Resources"
+         component={Resources}
          options={{ headerShown: false }}
          />
+         <Stack.Screen
+         name="Vaccination"
+         component={Vaccination}
+         options={{ headerShown: false }}
+         />
+         <Stack.Screen
+         name="Vaccination1"
+         component={Vaccination1}
+         options={{ headerShown: false }}
+         />
+         <Stack.Screen
+         name="Vaccination2"
+         component={Vaccination2}
+         options={{ headerShown: false }}
+         />
+         <Stack.Screen
+         name="DateOfVaccination"
+         component={DateOfVaccination}
+         options={{ headerShown: false }}
+         />
+
+
 
       </Stack.Navigator>
     </NavigationContainer>

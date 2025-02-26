@@ -11,6 +11,7 @@ import {
 import colors from "../constants/color";
 import { RFValue } from "react-native-responsive-fontsize";
 import { horizontalScale, verticalScale } from "../helpers/Metrics";
+import fonts from "../constants/fonts";
 
 // Get device width and height
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window");
@@ -61,6 +62,18 @@ const ScrollableContent = ({
     extrapolate: "clamp",
   });
 
+  // Animate Fixed Icons
+  const iconsOpacity = scrollY.interpolate({
+    inputRange: [0, imageHeight * 0.01], // Start fading out before the image disappears
+    outputRange: [1, 0], // Fully visible to fully hidden
+    extrapolate: "clamp",
+  });
+
+  const iconsTranslateY = scrollY.interpolate({
+    inputRange: [0, imageHeight],
+    outputRange: [0, -verticalScale(20)], // Moves up as it disappears
+    extrapolate: "clamp",
+  });
 
   return (
     <View style={styles.container}>
@@ -92,7 +105,15 @@ const ScrollableContent = ({
       </Animated.View>
 
       {/* Fixed Icons Over Image */}
-      <Animated.View style={[styles.fixedIcons, { opacity: imageOpacity }]}>
+      <Animated.View
+        style={[
+          styles.fixedIcons,
+          {
+            opacity: iconsOpacity,
+            transform: [{ translateY: iconsTranslateY }],
+          },
+        ]}
+      >
         <TouchableOpacity
           style={styles.cancelButton}
           onPress={() => navigation.goBack()}
@@ -145,9 +166,7 @@ const ScrollableContent = ({
 
           {subTitles?.length > 0
             ? subTitles.map((subTitle, index) => (
-                <Animated.View
-                  key={index}
-                >
+                <Animated.View key={index}>
                   <Text style={styles.subTitle}>{subTitle}</Text>
                   <Text style={styles.description}>
                     {descriptions?.[index]}
@@ -194,7 +213,7 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     position: "absolute",
-    top: verticalScale(20),
+    top: verticalScale(8),
   },
   HeaderCancelIcon: {
     width: horizontalScale(20),
@@ -209,7 +228,7 @@ const styles = StyleSheet.create({
   },
   shareButton: {
     position: "absolute",
-    top: verticalScale(20),
+    top: verticalScale(11),
     right: horizontalScale(50),
   },
   shareIcon: {
@@ -219,7 +238,7 @@ const styles = StyleSheet.create({
   likeButton: {
     position: "absolute",
     right: horizontalScale(19),
-    top: verticalScale(20),
+    top: verticalScale(11),
   },
   likeIcon: {
     width: horizontalScale(20),
@@ -227,11 +246,13 @@ const styles = StyleSheet.create({
     marginLeft: horizontalScale(10),
   },
   headerText: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(14 , deviceHeight),
     flex: 1,
     textAlign: "center",
-    fontFamily: "Montserrat Medium",
-    marginHorizontal: horizontalScale(50),
+    fontFamily: "Montserrat-Medium",
+    // marginHorizontal: horizontalScale(50),
+    marginRight: horizontalScale(30),
+    marginBottom: verticalScale(10),
   },
   ladyImage: {
     width: deviceWidth,
@@ -243,24 +264,24 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(20),
   },
   text: {
-    fontSize: RFValue(17),
+    fontSize: RFValue(17 , deviceHeight),
     marginBottom: verticalScale(20),
-    fontFamily: "Montserrat Bold",
+    fontFamily: fonts.MontserratBold,
   },
   subTitle: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(14 , deviceHeight),
     marginBottom: verticalScale(10),
     paddingVertical: verticalScale(5),
     fontFamily: "Montserrat Bold",
   },
   description: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(14 ,deviceHeight),
     marginBottom: verticalScale(15),
     lineHeight: verticalScale(20),
-    fontFamily: "Montserrat Light",
+    fontFamily: fonts.MontserratRegular,
   },
   title: {
-    fontSize: RFValue(10),
+    fontSize: RFValue(10 , deviceHeight),
     width: "20%",
     marginBottom: verticalScale(20),
     letterSpacing: 1,
@@ -268,19 +289,19 @@ const styles = StyleSheet.create({
     padding: horizontalScale(5),
     borderRadius: horizontalScale(20),
     textAlign: "center",
-    fontFamily: "Montserrat",
+    fontFamily: fonts.MontserratRegular,
   },
   titleSource: {
-    fontSize: RFValue(15),
-    fontFamily: "Montserrat Medium",
+    fontSize: RFValue(15 , deviceHeight),
+    fontFamily: fonts.MontserratMedium,
     marginBottom: verticalScale(20),
     letterSpacing: 1,
   },
   sourceText: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(14 , deviceHeight),
     marginBottom: verticalScale(20),
     lineHeight: verticalScale(20),
-    fontFamily: "Montserrat Light",
+    fontFamily: fonts.MontserratRegular,
   },
   horizontalLine: {
     height: verticalScale(1),

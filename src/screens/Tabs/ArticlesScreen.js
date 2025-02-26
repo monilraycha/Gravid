@@ -13,8 +13,9 @@ import colors from '../../constants/color';
 import articleCategories from '../../helpers/articleCatergories';
 import {RFValue} from 'react-native-responsive-fontsize';
 import { horizontalScale , moderateScale , verticalScale } from '../../helpers/Metrics';
+import fonts from '../../constants/fonts';
 
-const {width} = Dimensions.get('window');
+const {width , height} = Dimensions.get('window');
 const CARD_SIZE = width / 3.4; 
 
 const ArticlesScreen = ({navigation}) => {
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   headerTitle: {
-    fontSize: RFValue(16),
+    fontSize: RFValue(16 , height),
     color: '#000',
     flex: 1,
     textAlign: 'center',
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontSize: RFValue(12),
+    fontSize: RFValue(14 , height),
     fontFamily:'Montserrat Regular',
   },
   grid: {
@@ -150,13 +151,13 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
   },
   cardText: {
-    fontSize: RFValue(10),
+    fontSize: RFValue(12 , height),
     textAlign: 'center',
     fontFamily: 'Montserrat',
     
   },
   title: {
-    fontSize: RFValue(18),
+    fontSize: RFValue(20 , height),
     textAlign: 'left',
     marginTop: verticalScale(15),
     marginLeft: horizontalScale(15),
@@ -175,12 +176,13 @@ const styles = StyleSheet.create({
     tintColor: colors.primary
   },
   noResultText: {
-    fontSize: RFValue(14),
-    fontWeight: 'Montserrat Bold',
+    fontSize: RFValue(16 , height),
+    fontWeight: fonts.MontserratBold,
   },
   suggestionText: {
-    fontSize: RFValue(12),
+    fontSize: RFValue(14 , height),
     color: '#666',
     marginTop: verticalScale(10),
+    fontFamily:fonts.MontserratRegular
   },
 });
