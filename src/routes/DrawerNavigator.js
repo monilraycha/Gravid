@@ -29,7 +29,7 @@ const CustomDrawerContent = ({ navigation }) => {
      
      
       {/* Scrollable Content */}
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} bounces={false}>
         {/* Profile Section */}
         <View style={styles.profileSection}>
           {/* Add Pregnancy Button */}

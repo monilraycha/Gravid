@@ -36,56 +36,8 @@ const OxyTocin = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Animated Header */}
-      <Animated.View style={[styles.fixedHeader, { opacity: headerOpacity }]}>
-        <TouchableOpacity
-          style={styles.headerIcon}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={require("../../assets/icons/close.png")}
-            style={styles.cancelIcon}
-          />
-        </TouchableOpacity>
-
-        <Text style={styles.headerText}>
-          The importance of oxytocin for breastfeeding
-        </Text>
-
-        <TouchableOpacity
-          style ={styles.headerIcon}
-        >
-          <Image
-            source={require("../../assets/icons/sharedetail.png")}
-            style={styles.shareIcon}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-        style ={styles.headerIcon}
-        >
-          <Image
-            source={require("../../assets/images/heart.png")}
-            style={styles.likeIcon}
-          />
-        </TouchableOpacity>
-      </Animated.View>
-
-      {/* Scrollable Content */}
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
-        scrollEventThrottle={16}
-      >
-        {/* Animated Image */}
-        <Animated.Image
-          source={require("../../assets/images/womanholdbaby.jpeg")}
-          style={[styles.ladyImage, { opacity: imageOpacity }]}
-        />
-
+      {/* Fixed Icons at the Top */}
+      <View style={styles.fixedIconsContainer}>
         <TouchableOpacity
           style={styles.cancelButton}
           onPress={() => navigation.goBack()}
@@ -102,12 +54,37 @@ const OxyTocin = ({ navigation }) => {
             style={styles.shareIcon}
           />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.likeButton}>
           <Image
             source={require("../../assets/images/heart.png")}
             style={styles.likeIcon}
           />
         </TouchableOpacity>
+      </View>
+
+      {/* Animated Header */}
+      <Animated.View style={[styles.fixedHeader, { opacity: headerOpacity }]}>
+        <Text style={styles.headerText}>
+          The importance of oxytocin for breastfeeding
+        </Text>
+      </Animated.View>
+
+      {/* Scrollable Content */}
+      <Animated.ScrollView
+        bounces= {false}
+        showsVerticalScrollIndicator={false}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+        scrollEventThrottle={16}
+      >
+        {/* Animated Image */}
+        <Animated.Image
+          source={require("../../assets/images/womanholdbaby.jpeg")}
+          style={[styles.ladyImage, { opacity: imageOpacity }]}
+        />
 
         {/* Content Below */}
         <View style={styles.contentContainer}>
@@ -161,6 +138,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  fixedIconsContainer: {
+    position: "absolute",
+    top: verticalScale(15),
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: horizontalScale(20),
+    zIndex: 2, // Ensure icons are above the header and image
+  },
   fixedHeader: {
     position: "absolute",
     top: 0,
@@ -171,16 +158,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(20),
     flexDirection: "row",
     alignItems: "center",
-    zIndex: 1,
+    zIndex: 1, // Ensure header is below the icons
   },
-  headerIcon:{
-     paddingBottom:verticalScale(10)
-  },
-  
   cancelButton: {
-    marginRight: horizontalScale(10),
     position: "absolute",
-    top: verticalScale(15),
+    top: verticalScale(0),
     left: horizontalScale(10),
   },
   cancelIcon: {
@@ -188,29 +170,28 @@ const styles = StyleSheet.create({
     height: horizontalScale(20),
   },
   shareButton: {
-    position: "absolute",
-    top: verticalScale(15),
-    right: horizontalScale(50),
+    position:'absolute',
+    right:horizontalScale(45)
   },
   shareIcon: {
     width: horizontalScale(20),
     height: horizontalScale(20),
   },
   likeButton: {
-    position: "absolute",
-    right: horizontalScale(10),
-    top:verticalScale(15)
+    position:'absolute',
+    right:horizontalScale(15)
   },
   likeIcon: {
     width: horizontalScale(20),
     height: horizontalScale(20),
-    marginLeft: horizontalScale(10),
   },
   headerText: {
     fontSize: RFValue(14),
     flex: 1,
     textAlign: "center",
     fontFamily: "Montserrat Medium",
+    paddingHorizontal:10,
+    marginRight:horizontalScale(25)
   },
   ladyImage: {
     width: deviceWidth,

@@ -194,15 +194,14 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(20),
   },
   text: {
-    fontSize: RFValue(17),
+    fontSize: RFValue(18 , deviceHeight),
     marginBottom: verticalScale(10),
-    fontFamily: "Montserrat Medium",
+    fontFamily: "Montserrat-Medium",
   },
 
   description: {
     fontSize: RFValue(14, deviceHeight),
-    marginBottom: verticalScale(15),
-    fontFamily: "Montserrat Regular",
+    fontFamily: "Montserrat-Regular",
   },
   fixedIcons: {
     position: "absolute",

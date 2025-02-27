@@ -1,9 +1,11 @@
 import React, { version } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet , Dimensions } from "react-native";
 import colors from "../../constants/color";
 import ToolsHeader from "./ToolsHeader";
 import { moderateScale, verticalScale } from "../../helpers/Metrics";
 import { RFValue } from "react-native-responsive-fontsize";
+
+const {height} = Dimensions.get('window');
 
 const Nutrition = ({navigation}) => {
   const meals = [
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
 
  },
   heading: {
-    fontSize: RFValue(20),
+    fontSize: RFValue(20 , height),
     marginBottom: verticalScale(10),
     textAlign: "center",
     fontFamily:"Montserrat Medium"
@@ -66,12 +68,12 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   mealTitle: {
-     fontSize: RFValue(16),
+     fontSize: RFValue(16 , height),
      fontFamily:"Montserrat Medium",
      color: "#4CAF50" 
     },
   mealDescription: { 
-    fontSize: RFValue(14),
+    fontSize: RFValue(14 , height),
      color: "#555", 
      marginTop: 5 ,
      fontFamily:"Montserrat Regular"

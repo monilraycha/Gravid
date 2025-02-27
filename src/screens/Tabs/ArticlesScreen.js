@@ -73,6 +73,7 @@ const ArticlesScreen = ({navigation}) => {
           numColumns={3}
           contentContainerStyle={styles.grid}
           showsVerticalScrollIndicator={false}
+          bounces={false}
         />
       ) : (
         <View style={styles.noResultContainer}>

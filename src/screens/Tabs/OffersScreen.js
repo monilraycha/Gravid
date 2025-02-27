@@ -5,11 +5,11 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  ScrollView
 } from "react-native";
 import React from "react";
 import colors from "../../constants/color";
 import { RFValue } from "react-native-responsive-fontsize";
-import { ScrollView } from "react-native-gesture-handler";
 import { horizontalScale , moderateScale, verticalScale } from "../../helpers/Metrics";
 
 const { width , height } = Dimensions.get("window"); // Get screen width
@@ -21,7 +21,8 @@ const OffersScreen = () => {
         <Text style={styles.headerText}>Offers</Text>
       </View>
      
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} 
+      >
       <TouchableOpacity style={styles.card}>
         <Image
           source={require("../../assets/images/prmother.jpg")}
@@ -82,8 +83,8 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   headerText: {
-    fontSize: RFValue(16),
-    fontFamily: "Montserrat Medium",
+    fontSize: RFValue(16 , height),
+    fontFamily: "Montserrat-Medium",
     flex: 1,
     textAlign: "center",
   },
@@ -92,11 +93,6 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20),
     backgroundColor: "#ffffff",
     borderRadius: moderateScale(20),
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 8,
     alignItems: "center",
     overflow: "hidden",
   },
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: RFValue(16 , height),
-    fontFamily: "Montserrat Medium",
+    fontFamily: "Montserrat-Medium",
     fontWeight: "bold",
     color: "#333",
     textAlign: "left",
@@ -116,7 +112,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: RFValue(12 , height),
-    fontFamily: "Montserrat Regular",
+    fontFamily: "Montserrat-Regular",
     color: "#666",
     lineHeight: moderateScale(20),
     textAlign: "left",
