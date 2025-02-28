@@ -14,16 +14,15 @@ import { horizontalScale , moderateScale, verticalScale } from "../../helpers/Me
 
 const { width , height } = Dimensions.get("window"); // Get screen width
 
-const OffersScreen = () => {
+const OffersScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Offers</Text>
       </View>
      
-      <ScrollView showsVerticalScrollIndicator={false} 
-      >
-      <TouchableOpacity style={styles.card}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+      {/* <TouchableOpacity style={styles.card}>
         <Image
           source={require("../../assets/images/prmother.jpg")}
           style={styles.image}
@@ -39,8 +38,11 @@ const OffersScreen = () => {
           FREE WEEK TRIAL of the ultimate health and wellness program by signing
           up today!
         </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.card}>
+      </TouchableOpacity> */}
+
+      <TouchableOpacity style={styles.card} activeOpacity={0.8} 
+        onPress={() => navigation.navigate('LimitedOffer')}
+      >
         <Image
           source={require("../../assets/images/podcastw.jpg")}
           style={styles.image}

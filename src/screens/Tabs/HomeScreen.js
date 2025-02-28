@@ -289,7 +289,11 @@ const HomeScreen = ({ navigation }) => {
           </Text>
 
           <View style={styles.FeatureVideo}>
-            <TouchableOpacity>
+            <TouchableOpacity 
+                onPress={
+                  () => navigation.navigate("FactsVideo")
+                }
+             >
               {/* Image with Play Icon and Timestamp */}
               <View style={styles.imageContainer}>
                 <Image

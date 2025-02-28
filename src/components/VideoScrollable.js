@@ -24,10 +24,10 @@ const VideoScrollable = ({
   backCancelIcon,
   contentText,
   descriptions,
+  showLikeIcon = true, // Default to true, but can be overridden
 }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const imageHeight = deviceHeight * 0.3;
-  const playerRef = useRef(null);
 
   // Header opacity animation
   const headerOpacity = scrollY.interpolate({
@@ -36,50 +36,17 @@ const VideoScrollable = ({
     extrapolate: "clamp",
   });
 
-  // Image animations
-  const imageTranslateY = scrollY.interpolate({
-    inputRange: [0, imageHeight],
-    outputRange: [0, -imageHeight * 0.2],
-    extrapolate: "clamp",
-  });
-
-  const imageScale = scrollY.interpolate({
-    inputRange: [0, imageHeight],
-    outputRange: [1, 1.5],
-    extrapolate: "clamp",
-  });
-
+  // Image opacity animation
   const imageOpacity = scrollY.interpolate({
     inputRange: [0, imageHeight],
-    outputRange: [1, 0.2],
+    outputRange: [1, 0],
     extrapolate: "clamp",
   });
 
   return (
     <View style={styles.container}>
-      {/* Animated Header */}
-      <Animated.View style={[styles.fixedHeader, { opacity: headerOpacity }]}>
-        <TouchableOpacity
-          style={styles.headerIcon}
-          onPress={() => navigation.goBack()}
-        >
-          <Image source={backCancelIcon} style={styles.HeaderCancelIcon} />
-        </TouchableOpacity>
-
-        <Text style={styles.headerText}>{headerTitle}</Text>
-
-        <View style={styles.headerRightIcons}>
-          <TouchableOpacity style={styles.headerIcon}>
-            <Image
-              source={require("../assets/images/heart.png")}
-              style={styles.searchIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      </Animated.View>
-
-      {/* Fixed Icons Over Image */}
-      <Animated.View style={[styles.fixedIcons, { opacity: imageOpacity }]}>
+      {/* Fixed Icons at the Top */}
+      <View style={styles.fixedIconsContainer}>
         <TouchableOpacity
           style={styles.cancelButton}
           onPress={() => navigation.goBack()}
@@ -87,12 +54,20 @@ const VideoScrollable = ({
           <Image source={backCancelIcon} style={styles.cancelIcon} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.searchButton}>
-          <Image
-            source={require("../assets/images/heart.png")}
-            style={styles.searchIcon}
-          />
-        </TouchableOpacity>
+        {/* Conditionally render the like icon */}
+        {showLikeIcon && (
+          <TouchableOpacity style={styles.likeButton}>
+            <Image
+              source={require("../assets/images/heart.png")}
+              style={styles.likeIcon}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+
+      {/* Animated Header */}
+      <Animated.View style={[styles.fixedHeader, { opacity: headerOpacity }]}>
+        <Text style={styles.headerText}>{headerTitle}</Text>
       </Animated.View>
 
       {/* Scrollable Content */}
@@ -105,20 +80,25 @@ const VideoScrollable = ({
           { useNativeDriver: false }
         )}
         scrollEventThrottle={16}
+        contentContainerStyle={styles.scrollViewContent}
       >
-        <VideoPlayer
-          ref={playerRef}
-          endWithThumbnail
-          thumbnail={thumbnail}
-          source={{
-            uri: videoUri,
-          }}
-          videoWidth={deviceWidth}
-          videoHeight={deviceHeight * 0.3}
-          onError={(e) => console.log(e)}
-          showDuration={true}
-        />
+        {/* Animated Video Player */}
+        <Animated.View style={{ opacity: imageOpacity }}>
+          <VideoPlayer
+            ref={useRef(null)}
+            endWithThumbnail
+            thumbnail={thumbnail}
+            source={{
+              uri: videoUri,
+            }}
+            videoWidth={deviceWidth}
+            videoHeight={deviceHeight * 0.3}
+            onError={(e) => console.log(e)}
+            showDuration={true}
+          />
+        </Animated.View>
 
+        {/* Content Below */}
         <View style={styles.contentContainer}>
           <Text style={styles.text}>{contentText}</Text>
 
@@ -140,6 +120,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  fixedIconsContainer: {
+    position: "absolute",
+    top: verticalScale(15),
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: horizontalScale(20),
+    zIndex: 2, // Ensure icons are above the header and video
+  },
   fixedHeader: {
     position: "absolute",
     top: 0,
@@ -150,71 +140,53 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(20),
     flexDirection: "row",
     alignItems: "center",
-    zIndex: 1,
-  },
-  headerIcon: {
-    paddingBottom: verticalScale(10),
+    zIndex: 1, // Ensure header is below the icons
   },
   cancelButton: {
     position: "absolute",
-    top: verticalScale(20),
-  },
-  HeaderCancelIcon: {
-    width: horizontalScale(20),
-    height: horizontalScale(20),
-    position: "absolute",
-    bottom: verticalScale(0),
-    left: horizontalScale(-10),
+    top: verticalScale(0),
+    left: horizontalScale(10),
   },
   cancelIcon: {
     width: horizontalScale(20),
     height: horizontalScale(20),
-    tintColor:colors.white
+    tintColor: colors.black,
   },
-  searchButton: {
+  likeButton: {
     position: "absolute",
-    right: horizontalScale(19),
-    top: verticalScale(20),
+    right: horizontalScale(15),
   },
-  searchIcon: {
+  likeIcon: {
     width: horizontalScale(20),
     height: horizontalScale(20),
-    marginLeft: horizontalScale(10),
-    tintColor:colors.white
+    tintColor: colors.black,
   },
   headerText: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(14, deviceHeight),
     flex: 1,
     textAlign: "center",
-    fontFamily: "Montserrat Medium",
-    marginHorizontal: horizontalScale(50),
+    fontFamily: "Montserrat-Medium",
+    marginRight: horizontalScale(30),
+    marginBottom: verticalScale(10),
+    paddingHorizontal: horizontalScale(10),
+    color: colors.black,
   },
   contentContainer: {
     padding: horizontalScale(20),
     paddingTop: verticalScale(20),
   },
   text: {
-    fontSize: RFValue(18 , deviceHeight),
-    marginBottom: verticalScale(10),
+    fontSize: RFValue(17, deviceHeight),
+    marginBottom: verticalScale(20),
     fontFamily: "Montserrat-Medium",
   },
-
   description: {
     fontSize: RFValue(14, deviceHeight),
+    marginBottom: verticalScale(15),
+    lineHeight: verticalScale(20),
     fontFamily: "Montserrat-Regular",
   },
-  fixedIcons: {
-    position: "absolute",
-    left: horizontalScale(10),
-    right: horizontalScale(0),
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: horizontalScale(15),
-    zIndex: 2,
-  },
-  headerRightIcons: {
-    flexDirection: "row",
-    position: "absolute",
-    right: horizontalScale(20),
+  scrollViewContent: {
+    // minHeight: deviceHeight + 200, // Ensure the ScrollView has enough content to scroll
   },
 });

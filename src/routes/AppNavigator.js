@@ -69,6 +69,13 @@ import Vaccination from "../screens/Tools/Vaccination";
 import Vaccination1 from "../screens/Tools/Vaccination1";
 import Vaccination2 from "../screens/Tools/Vaccination2";
 import DateOfVaccination from "../screens/Tools/DateOfVaccination";
+import FactsVideo from "../screens/Hometabs/FactsVideo";
+import LimitedOffer from "../screens/OfferTab/LimitedOffer";
+import OfferVideo1 from "../screens/OfferTab/OfferVideo1";
+import OfferVideo2 from "../screens/OfferTab/OfferVideo2";
+import OfferVideo3 from "../screens/OfferTab/OfferVideo3";
+import TryFree from "../screens/OfferTab/TryFree";
+import Wellness1 from "../screens/OfferTab/Wellness1";
 
 const Stack = createStackNavigator();
 
@@ -171,6 +178,12 @@ const AppNavigator = () => {
         <Stack.Screen
           name="OxyTocin"
           component={OxyTocin}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="FactsVideo"
+          component={FactsVideo}
           options={{ headerShown: false }}
         />
 
@@ -443,34 +456,64 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
         />
 
-         <Stack.Screen
-         name="Resources"
-         component={Resources}
-         options={{ headerShown: false }}
-         />
-         <Stack.Screen
-         name="Vaccination"
-         component={Vaccination}
-         options={{ headerShown: false }}
-         />
-         <Stack.Screen
-         name="Vaccination1"
-         component={Vaccination1}
-         options={{ headerShown: false }}
-         />
-         <Stack.Screen
-         name="Vaccination2"
-         component={Vaccination2}
-         options={{ headerShown: false }}
-         />
-         <Stack.Screen
-         name="DateOfVaccination"
-         component={DateOfVaccination}
-         options={{ headerShown: false }}
-         />
+        <Stack.Screen
+          name="Resources"
+          component={Resources}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Vaccination"
+          component={Vaccination}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Vaccination1"
+          component={Vaccination1}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Vaccination2"
+          component={Vaccination2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DateOfVaccination"
+          component={DateOfVaccination}
+          options={{ headerShown: false }}
+        />
 
+        {/* OfferTabs */}
 
-
+        <Stack.Screen
+          name="LimitedOffer"
+          component={LimitedOffer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OfferVideo1"
+          component={OfferVideo1}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OfferVideo2"
+          component={OfferVideo2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OfferVideo3"
+          component={OfferVideo3}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TryFree"
+          component={TryFree}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Wellness1"
+          component={Wellness1}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

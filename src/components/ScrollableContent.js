@@ -33,7 +33,7 @@ const ScrollableContent = ({
   // Header opacity animation
   const headerOpacity = scrollY.interpolate({
     inputRange: [0, imageHeight],
-    outputRange: [0,1],
+    outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
@@ -84,6 +84,7 @@ const ScrollableContent = ({
           { useNativeDriver: false }
         )}
         scrollEventThrottle={16}
+        contentContainerStyle={styles.scrollViewContent} // Add this line
       >
         {/* Animated Image */}
         <Animated.Image
@@ -237,5 +238,8 @@ const styles = StyleSheet.create({
     height: verticalScale(1),
     backgroundColor: "#D3D3D3",
     marginVertical: verticalScale(20),
+  },
+  scrollViewContent: {
+    minHeight: deviceHeight + 200, // Ensure the ScrollView has enough content to scroll
   },
 });
