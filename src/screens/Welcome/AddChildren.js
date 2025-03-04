@@ -8,17 +8,22 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-} from 'react-native';
-import React, { useState } from 'react';
-import CommonButton from '../../components/CommonButton';
-import colors from '../../constants/color';
-import { moderateScale, horizontalScale, verticalScale } from '../../helpers/Metrics';
-import { RFValue } from 'react-native-responsive-fontsize';
+} from "react-native";
+import React, { useState } from "react";
+import CommonButton from "../../components/CommonButton";
+import colors from "../../constants/color";
+import {
+  moderateScale,
+  horizontalScale,
+  verticalScale,
+} from "../../helpers/Metrics";
+import { RFValue } from "react-native-responsive-fontsize";
+import fonts from "../../constants/fonts";
 
 const AddChildren = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [childName, setChildName] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [childName, setChildName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [selectedGender, setSelectedGender] = useState(null);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
@@ -49,12 +54,21 @@ const AddChildren = ({ navigation }) => {
         You can alternatively add this information later in app settings.
       </Text>
 
-      <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.button}>
-        <Image source={require('../../assets/images/add.png')} style={styles.icon} />
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        style={styles.button}
+      >
+        <Image
+          source={require("../../assets/images/add.png")}
+          style={styles.icon}
+        />
         <Text style={styles.buttonText}>Add Child</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.addLater}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.addLater}
+      >
         <Text style={styles.laterbuttonText}>ADD LATER</Text>
       </TouchableOpacity>
 
@@ -62,7 +76,8 @@ const AddChildren = ({ navigation }) => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
         <TouchableWithoutFeedback onPress={closeModal}>
           <View style={styles.modalBackground}>
             <TouchableWithoutFeedback>
@@ -83,19 +98,41 @@ const AddChildren = ({ navigation }) => {
                 <Text style={styles.label}>GENDER (OPTIONAL)</Text>
 
                 <View style={styles.checkboxContainer}>
-                  <TouchableOpacity onPress={() => handleCheckboxPress('girl')} style={styles.checkboxItem}>
-                    <View style={[styles.checkbox, selectedGender === 'girl' && styles.checkboxChecked]}>
-                      {selectedGender === 'girl' && (
-                        <Image source={require('../../assets/images/check.png')} style={styles.checkmarkIcon} />
+                  <TouchableOpacity
+                    onPress={() => handleCheckboxPress("girl")}
+                    style={styles.checkboxItem}
+                  >
+                    <View
+                      style={[
+                        styles.checkbox,
+                        selectedGender === "girl" && styles.checkboxChecked,
+                      ]}
+                    >
+                      {selectedGender === "girl" && (
+                        <Image
+                          source={require("../../assets/images/check.png")}
+                          style={styles.checkmarkIcon}
+                        />
                       )}
                     </View>
                     <Text style={styles.checkboxText}>Girl</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => handleCheckboxPress('boy')} style={styles.checkboxItem}>
-                    <View style={[styles.checkbox, selectedGender === 'boy' && styles.checkboxChecked]}>
-                      {selectedGender === 'boy' && (
-                        <Image source={require('../../assets/images/check.png')} style={styles.checkmarkIcon} />
+                  <TouchableOpacity
+                    onPress={() => handleCheckboxPress("boy")}
+                    style={styles.checkboxItem}
+                  >
+                    <View
+                      style={[
+                        styles.checkbox,
+                        selectedGender === "boy" && styles.checkboxChecked,
+                      ]}
+                    >
+                      {selectedGender === "boy" && (
+                        <Image
+                          source={require("../../assets/images/check.png")}
+                          style={styles.checkmarkIcon}
+                        />
                       )}
                     </View>
                     <Text style={styles.checkboxText}>Boy</Text>
@@ -106,7 +143,7 @@ const AddChildren = ({ navigation }) => {
                   filled={true}
                   title="ADD CHILD"
                   style={{
-                    backgroundColor: isButtonEnabled ? '#F88C8C' : '#ccc',
+                    backgroundColor: isButtonEnabled ? "#F88C8C" : "#ccc",
                   }}
                   titleStyle={styles.modalButtonText}
                   disabled={!isButtonEnabled}
@@ -128,40 +165,40 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     padding: horizontalScale(20),
     marginTop: verticalScale(70),
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   title: {
     fontSize: RFValue(22),
-    fontWeight: 'bold',
-    color: '#333',
+    color: colors.black,
+    color: colors.black,
     marginBottom: verticalScale(15),
-    textAlign: 'left',
-    fontFamily: 'Montserrat Bold',
+    textAlign: "left",
+    fontFamily: fonts.MontserratBold,
   },
   description: {
     fontSize: RFValue(14),
-    color: '#555',
+    color: colors.black,
     lineHeight: verticalScale(24),
-    textAlign: 'left',
+    textAlign: "left",
     marginBottom: verticalScale(10),
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: "Montserrat-Regular",
   },
   highlights: {
     fontSize: RFValue(14),
-    color: '#000000',
+    color: colors.black,
     marginBottom: verticalScale(30),
-    fontFamily: 'Montserrat Medium',
+    fontFamily: "Montserrat Medium",
   },
   button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
     borderRadius: moderateScale(12),
     paddingVertical: verticalScale(15),
     paddingHorizontal: horizontalScale(25),
     borderWidth: moderateScale(1),
-    borderColor: '#F88C8C',
-    width: '100%',
+    borderColor: "#F88C8C",
+    width: "100%",
   },
   icon: {
     width: moderateScale(22),
@@ -170,72 +207,73 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: RFValue(14),
-    color: '#000000',
+    color: colors.black,
     marginLeft: horizontalScale(5),
-    fontFamily: 'Montserrat Medium',
+    fontFamily: "Montserrat Medium",
   },
   addLater: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderRadius: moderateScale(12),
     paddingVertical: verticalScale(15),
     paddingHorizontal: horizontalScale(25),
     marginTop: verticalScale(10),
-    alignSelf: 'center',
-    position: 'absolute',
+    alignSelf: "center",
+    position: "absolute",
     bottom: verticalScale(25),
   },
   laterbuttonText: {
     letterSpacing: 1,
     fontSize: RFValue(14),
-    color: '#000000',
-    fontFamily: 'Montserrat Medium',
+    color: colors.black,
+    fontFamily: "Montserrat Medium",
   },
   modalBackground: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: moderateScale(40),
     borderRadius: moderateScale(12),
     width: moderateScale(300),
   },
   modalTitle: {
     fontSize: RFValue(20),
+    color: colors.black,
     marginBottom: verticalScale(30),
-    textAlign: 'center',
-    fontFamily: 'Montserrat',
+    textAlign: "center",
+    fontFamily: "Montserrat",
   },
   modalButtonText: {
-    color: '#F88C8C',
-    fontWeight: 'bold',
+    color: "#F88C8C",
+    fontWeight: "bold",
     letterSpacing: 1,
   },
   input: {
     borderWidth: moderateScale(1),
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: moderateScale(8),
     padding: moderateScale(10),
     marginBottom: verticalScale(15),
-    fontFamily: 'Montserrat',
+    fontFamily: "Montserrat",
   },
   label: {
     fontSize: RFValue(12),
     marginBottom: verticalScale(10),
     letterSpacing: 1,
     marginTop: verticalScale(10),
-    fontFamily: 'Montserrat',
+    fontFamily: "Montserrat",
   },
   checkboxContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: verticalScale(20),
     marginTop: verticalScale(10),
   },
   checkboxItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginRight: horizontalScale(20),
     marginBottom: verticalScale(10),
   },
@@ -244,21 +282,21 @@ const styles = StyleSheet.create({
     height: moderateScale(24),
     borderWidth: moderateScale(2),
     borderRadius: moderateScale(12),
-    borderColor: '#F88C8C',
+    borderColor: "#F88C8C",
     marginRight: horizontalScale(10),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   checkboxChecked: {
-    backgroundColor: '#F88C8C',
+    backgroundColor: "#F88C8C",
   },
   checkmarkIcon: {
     width: moderateScale(18),
     height: moderateScale(18),
-    tintColor: 'white',
+    tintColor: "white",
   },
   checkboxText: {
     fontSize: RFValue(16),
-    color: '#333',
+    color: colors.black,
   },
 });

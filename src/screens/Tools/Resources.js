@@ -12,9 +12,13 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../constants/color";
 import { RFValue } from "react-native-responsive-fontsize";
-import { horizontalScale , verticalScale , moderateScale } from "../../helpers/Metrics";
+import {
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from "../../helpers/Metrics";
 
-const height = Dimensions.get('window')
+const height = Dimensions.get("window");
 
 const resources = [
   {
@@ -69,8 +73,14 @@ const Resources = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Image source={require("../../assets/icons/back.png")} style={styles.backIcon} />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Image
+            source={require("../../assets/icons/back.png")}
+            style={styles.backIcon}
+          />
         </TouchableOpacity>
         <Text style={styles.headerText}>Resources</Text>
       </View>
@@ -107,16 +117,16 @@ const styles = StyleSheet.create({
     height: verticalScale(20),
   },
   headerText: {
-    fontSize: RFValue(20 , height),
+    fontSize: RFValue(20, height),
     fontFamily: "Montserrat-Medium",
     textAlign: "center",
   },
   sectionTitle: {
-    fontSize: RFValue(20 , height),
+    fontSize: RFValue(20, height),
     fontFamily: "Montserrat-Medium",
     marginBottom: verticalScale(15),
     textAlign: "center",
-    marginTop:verticalScale(10)
+    marginTop: verticalScale(10),
   },
   card: {
     flexDirection: "row",
@@ -137,12 +147,12 @@ const styles = StyleSheet.create({
     marginLeft: horizontalScale(10),
   },
   title: {
-    fontSize: RFValue(16 , height),
+    fontSize: RFValue(16, height),
     fontFamily: "Montserrat-SemiBold",
-    color: "#333",
+    color: colors.black,
   },
   type: {
-    fontSize: RFValue(14 , height),
+    fontSize: RFValue(14, height),
     fontFamily: "Montserrat-Regular",
     color: "#777",
   },

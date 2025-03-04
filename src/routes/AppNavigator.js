@@ -3,42 +3,30 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
 import SplashScreen from "../screens/Welcome/SplashScreen";
-import InboxScreen from "../screens/Tabs/InboxScreen";
-import LoginScreen from "../screens/Login/LoginScreen";
-import SignUpScreen from "../screens/Login/SignUpScreen";
 import StartJourney from "../screens/Welcome/StartJourney";
 import TrackPregnancy from "../screens/Welcome/TrackPregnancy";
 import AddChildren from "../screens/Welcome/AddChildren";
+
+import InboxScreen from "../screens/Tabs/InboxScreen";
+import LoginScreen from "../screens/Login/LoginScreen";
+import SignUpScreen from "../screens/Login/SignUpScreen";
+
 import DrawerNavigator from "./DrawerNavigator";
 import CustomHeader from "../components/CustomHeader";
-import AnswerScreen from "../screens/QA/AnswerScreen";
 import FollowOnInsta from "../screens/Hometabs/FollowOnInsta";
 import TellStory from "../screens/Hometabs/TellStory";
 import OxyTocin from "../screens/Hometabs/OxyTocin";
+
+import AnswerScreen from "../screens/DrawerTabs/QA/AnswerScreen";
 import SupportScreen from "../screens/DrawerTabs/SupportScreen";
 import PregnancyScreen from "../screens/DrawerTabs/PregnancyScreen";
 import AppSettings from "../screens/DrawerTabs/AppSettings";
 import NotificationsScreen from "../screens/DrawerTabs/NotificationsScreen";
+
 import PregnancyWeeks from "../screens/Articles/TopicList/PregnancyWeeks/PregnancyWeeks";
 import TrimesterFour from "../screens/Articles/TopicList/Trimester/TrimesterFour";
 import Labor from "../screens/Articles/TopicList/labor/Labor";
 import BreastfeedingGuide from "../screens/Articles/TopicList/Breastfeedingguide/BreastfeedingGuide";
-import Diseases from "../screens/Articles/quecards/Diseases/Diseases";
-import FetalMovement from "../screens/Articles/quecards/Fetalmovement/FetalMovement";
-import BabyGuide from "../screens/Articles/quecards/Babyguide/BabyGuide";
-import DietAdvice from "../screens/Articles/quecards/Dietadvice/DietAdvice";
-import FirstWeeks from "../screens/Articles/quecards/Firstweeks/FirstWeeks";
-import MentalHealth from "../screens/Articles/quecards/Mentalhealth/MentalHealth";
-import FolicAcid from "../screens/Articles/anscards/Diseases/FolicAcid";
-import HavingDrunk from "../screens/Articles/anscards/Diseases/HavingDrunk";
-import EatDiet from "../screens/Articles/anscards/Diseases/EatDiet";
-import Miscarriage from "../screens/Articles/anscards/Diseases/Miscarriage";
-import Listeria from "../screens/Articles/anscards/Diseases/Listeria";
-import BabyMonths from "../screens/Articles/quecards/Babymonths/BabyMonths";
-import CarSeatGuide from "../screens/Articles/quecards/carseatguide/CarSeatGuide";
-import Clothing from "../screens/Articles/quecards/clothing/Clothing";
-import Partner from "../screens/Articles/quecards/partner/Partner";
-import MedicalBoard from "../screens/Articles/quecards/Medicalboard/MedicalBoard";
 import VisitsDuringPregnancy from "../screens/Articles/TopicList/PregnancyWeeks/VisitsDuringPregnancy";
 import WeekEight from "../screens/Articles/TopicList/PregnancyWeeks/WeekCards/weekEight";
 import MidwifeInformation from "../screens/Articles/TopicList/PregnancyWeeks/MidwifeInformation";
@@ -46,12 +34,30 @@ import sympToms from "../screens/Articles/TopicList/PregnancyWeeks/SympToms";
 import Preparations from "../screens/Articles/TopicList/PregnancyWeeks/Preparations";
 import Exercising from "../screens/Articles/TopicList/PregnancyWeeks/Exercising";
 import Fertility from "../screens/Articles/TopicList/PregnancyWeeks/Fertility";
+
+import Diseases from "../screens/Articles/quecards/Diseases/Diseases";
+import FetalMovement from "../screens/Articles/quecards/Fetalmovement/FetalMovement";
+import BabyGuide from "../screens/Articles/quecards/Babyguide/BabyGuide";
+import DietAdvice from "../screens/Articles/quecards/Dietadvice/DietAdvice";
+import FirstWeeks from "../screens/Articles/quecards/Firstweeks/FirstWeeks";
+import MentalHealth from "../screens/Articles/quecards/Mentalhealth/MentalHealth";
+import BabyMonths from "../screens/Articles/quecards/Babymonths/BabyMonths";
+import CarSeatGuide from "../screens/Articles/quecards/carseatguide/CarSeatGuide";
+import Clothing from "../screens/Articles/quecards/clothing/Clothing";
+import Partner from "../screens/Articles/quecards/partner/Partner";
+import MedicalBoard from "../screens/Articles/quecards/Medicalboard/MedicalBoard";
+
+import FolicAcid from "../screens/Articles/anscards/Diseases/FolicAcid";
+import HavingDrunk from "../screens/Articles/anscards/Diseases/HavingDrunk";
+import EatDiet from "../screens/Articles/anscards/Diseases/EatDiet";
+import Miscarriage from "../screens/Articles/anscards/Diseases/Miscarriage";
+import Listeria from "../screens/Articles/anscards/Diseases/Listeria";
+
 import VideoOne from "../screens/Playtab/VideoOne";
 import VideoTwo from "../screens/Playtab/VideoTwo";
 import VideoThree from "../screens/Playtab/VideoThree";
 import Podcast from "../screens/Playtab/Browse/Podcast";
 import PlayBaby from "../screens/Playtab/Browse/PlayBaby";
-import { PlayContent } from "../helpers/PlayContent";
 import PlayPregnancy from "../screens/Playtab/Browse/PlayPregnancy";
 import PlayMedical from "../screens/Playtab/Browse/PlayMedical";
 import PlayLabor from "../screens/Playtab/Browse/PlayLabor";
@@ -61,15 +67,18 @@ import Empower2 from "../screens/Playtab/Playlists/Empower2";
 import Exclusive from "../screens/Playtab/Playlists/Exclusive";
 import Exclusive1 from "../screens/Playtab/Playlists/Exclusive1";
 import Exclusive2 from "../screens/Playtab/Playlists/Exclusive2";
+
 import CheckList from "../screens/Tools/CheckList";
 import Calender from "../screens/Tools/Calender";
 import Nutrition from "../screens/Tools/Nutrition";
 import Resources from "../screens/Tools/Resources";
-import Vaccination from "../screens/Tools/Vaccination";
-import Vaccination1 from "../screens/Tools/Vaccination1";
-import Vaccination2 from "../screens/Tools/Vaccination2";
-import DateOfVaccination from "../screens/Tools/DateOfVaccination";
+import Vaccination from "../screens/Tools/vaccination/Vaccination";
+import Vaccination1 from "../screens/Tools/vaccination/Vaccination1";
+import Vaccination2 from "../screens/Tools/vaccination/Vaccination2";
+import DateOfVaccination from "../screens/Tools/vaccination/DateOfVaccination";
+
 import FactsVideo from "../screens/Hometabs/FactsVideo";
+
 import LimitedOffer from "../screens/OfferTab/LimitedOffer";
 import OfferVideo1 from "../screens/OfferTab/OfferVideo1";
 import OfferVideo2 from "../screens/OfferTab/OfferVideo2";
@@ -82,7 +91,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainApp">
+      <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}

@@ -6,9 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
 } from "react-native";
-
 import CommonButton from "../../components/CommonButton";
 import colors from "../../constants/color";
 import {
@@ -17,8 +16,9 @@ import {
   verticalScale,
 } from "../../helpers/Metrics";
 import { RFValue } from "react-native-responsive-fontsize";
+import fonts from "../../constants/fonts";
 
-const {height} = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -92,7 +92,7 @@ const SignUpScreen = ({ navigation }) => {
       </View>
 
       <Text style={styles.termsText}>
-        By continuing I agree to the {''}
+        By continuing I agree to the {""}
         <Text
           style={styles.linkText}
           onPress={() => alert("Terms of Use clicked")}
@@ -114,7 +114,7 @@ const SignUpScreen = ({ navigation }) => {
         filled={isFormValid}
         style={[
           styles.button,
-          { backgroundColor: isFormValid ? "#F88C8C" : "#D9D9D9" },
+          { backgroundColor: isFormValid ? "#F88C8C" : "#B6B0AE" },
         ]}
         textStyle={{
           color: isFormValid ? "#000000" : "#ffffff",
@@ -135,21 +135,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   title: {
-    fontSize: RFValue(22 , height),
-    fontFamily:"Montserrat Bold",
-    fontWeight:"600",
+    fontSize: RFValue(22, height),
+    fontFamily: fonts.MontserratBold,
     marginBottom: verticalScale(10),
     alignSelf: "center",
-
+    color: colors.black,
   },
   description: {
-    fontSize: RFValue(14 , height),
-    marginBottom: verticalScale(20),
+    fontSize: RFValue(16, height),
+    color: colors.black,
+    marginBottom: verticalScale(10),
     marginTop: verticalScale(10),
-    fontFamily:'Montserrat'
+    fontFamily: fonts.MontserratMedium,
   },
   inputContainer: {
-    marginBottom: verticalScale(20),
+    marginBottom: verticalScale(10),
     marginTop: verticalScale(10),
   },
   input: {
@@ -158,7 +158,9 @@ const styles = StyleSheet.create({
     padding: moderateScale(15),
     borderRadius: moderateScale(8),
     marginBottom: verticalScale(15),
-    fontSize: RFValue(14 , height),
+    fontSize: RFValue(14, height),
+    color: colors.black,
+    fontFamily: fonts.MontserratRegular,
     marginTop: verticalScale(10),
   },
   checkboxWrapper: {
@@ -173,10 +175,10 @@ const styles = StyleSheet.create({
   },
   checkboxText: {
     marginLeft: horizontalScale(10),
-    fontSize: RFValue(12 , height),
+    fontSize: RFValue(13, height),
+    color: colors.black,
     flexShrink: 1,
-    fontFamily:'Montserrat'
-
+    fontFamily: fonts.MontserratRegular,
   },
   checkboxContainer: {
     marginTop: verticalScale(5),
@@ -201,20 +203,19 @@ const styles = StyleSheet.create({
     tintColor: "white",
   },
   button: {
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(30),
     width: "100%",
   },
   termsText: {
-    fontSize: RFValue(14 , height),
-    color: "#000",
+    fontSize: RFValue(14, height),
+    color: colors.black,
     marginTop: verticalScale(10),
-    fontFamily:'Montserrat'
-
+    fontFamily: "Montserrat",
   },
   linkText: {
     color: "#0000EE",
     textDecorationLine: "underline",
-    fontFamily:'Montserrat',
-    fontSize: RFValue(14 , height),
+    fontFamily: fonts.MontserratRegular,
+    fontSize: RFValue(14, height),
   },
 });

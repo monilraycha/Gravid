@@ -5,18 +5,21 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
-import React from 'react';
-import colors from '../../constants/color';
-import {horizontalScale, verticalScale} from '../../helpers/Metrics';
-import {RFValue} from 'react-native-responsive-fontsize';
-import faqData from '../../helpers/faqData';
+  Dimensions,
+} from "react-native";
+import React from "react";
+import colors from "../../constants/color";
+import { horizontalScale, verticalScale } from "../../helpers/Metrics";
+import { RFValue } from "react-native-responsive-fontsize";
+import faqData from "../../constants/faqData";
+import fonts from "../../constants/fonts";
 
-const SupportScreen = ({navigation}) => {
+const height = Dimensions.get("window");
 
+const SupportScreen = ({ navigation }) => {
   // Navigation Function
-  const navigateToAnswer = faqItem => {
-    navigation.navigate('AnswerScreen', {
+  const navigateToAnswer = (faqItem) => {
+    navigation.navigate("AnswerScreen", {
       question: faqItem.question,
       answer: faqItem.answer,
     });
@@ -28,7 +31,7 @@ const SupportScreen = ({navigation}) => {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
-            source={require('../../assets/images/back.png')}
+            source={require("../../assets/images/back.png")}
             style={styles.headerImage}
           />
         </TouchableOpacity>
@@ -41,11 +44,12 @@ const SupportScreen = ({navigation}) => {
           <TouchableOpacity
             key={index}
             style={styles.button}
-            onPress={() => navigateToAnswer(faqItem)}>
+            onPress={() => navigateToAnswer(faqItem)}
+          >
             <View style={styles.buttonContent}>
               <Text style={styles.buttonText}>{faqItem.question}</Text>
               <Image
-                source={require('../../assets/icons/chevron.png')}
+                source={require("../../assets/icons/chevron.png")}
                 style={styles.chevronIcon}
               />
             </View>
@@ -64,10 +68,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   header: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: horizontalScale(15),
     paddingVertical: verticalScale(15),
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: colors.primary,
   },
   headerImage: {
@@ -75,8 +79,10 @@ const styles = StyleSheet.create({
     height: verticalScale(20),
   },
   headerText: {
-    fontSize: RFValue(16),
-    textAlign: 'center',
+    fontSize: RFValue(18, height),
+    color:colors.black,
+    fontFamily: fonts.MontserratMedium,
+    textAlign: "center",
     flex: 1,
   },
   button: {
@@ -86,13 +92,14 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(5),
   },
   buttonContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   buttonText: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(16, height),
     color: colors.black,
+    fontFamily: fonts.MontserratRegular,
   },
   chevronIcon: {
     width: horizontalScale(20),

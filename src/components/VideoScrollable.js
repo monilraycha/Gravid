@@ -179,14 +179,16 @@ const styles = StyleSheet.create({
     fontSize: RFValue(17, deviceHeight),
     marginBottom: verticalScale(20),
     fontFamily: "Montserrat-Medium",
+    color: colors.black,
   },
   description: {
     fontSize: RFValue(14, deviceHeight),
     marginBottom: verticalScale(15),
     lineHeight: verticalScale(20),
     fontFamily: "Montserrat-Regular",
+    color: colors.black,
   },
   scrollViewContent: {
-    // minHeight: deviceHeight + 200, // Ensure the ScrollView has enough content to scroll
+    minHeight: deviceHeight + 200, // Ensure the ScrollView has enough content to scroll
   },
 });

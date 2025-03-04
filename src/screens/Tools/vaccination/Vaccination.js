@@ -5,17 +5,17 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from "react-native";
-import colors from "../../constants/color";
 import {
   horizontalScale,
   moderateScale,
   verticalScale,
-} from "../../helpers/Metrics";
+} from "../../../helpers/Metrics";
 import { RFValue } from "react-native-responsive-fontsize";
+import colors from "../../../constants/color";
 
-const {height} = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const Vaccination = ({ navigation }) => {
   return (
@@ -26,7 +26,7 @@ const Vaccination = ({ navigation }) => {
           style={styles.backButton}
         >
           <Image
-            source={require("../../assets/icons/back.png")}
+            source={require("../../../assets/icons/back.png")}
             style={styles.backIcon}
           />
         </TouchableOpacity>
@@ -34,7 +34,7 @@ const Vaccination = ({ navigation }) => {
       </View>
       <View style={styles.content}>
         <Image
-          source={require("../../assets/icons/injection.png")}
+          source={require("../../../assets/icons/injection.png")}
           style={[styles.emailIcon, { tintColor: colors.primary }]}
         />
         <Text style={styles.updateTitle}>
@@ -53,7 +53,7 @@ const Vaccination = ({ navigation }) => {
           onPress={() => navigation.navigate("Vaccination1")}
         >
           <Image
-            source={require("../../assets/icons/plus1.png")}
+            source={require("../../../assets/icons/plus1.png")}
             style={styles.addIcon}
           />
         </TouchableOpacity>
@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(15),
   },
   updateTitle: {
-    fontSize: RFValue(16 , height),
+    fontSize: RFValue(16, height),
     textAlign: "center",
     fontFamily: "Montserrat-ExtraBold",
   },
   noUpdatesText: {
-    fontSize: RFValue(12 , height),
+    fontSize: RFValue(12, height),
     textAlign: "center",
     fontFamily: "Montserrat-Medium",
     color: colors.textSecondary,

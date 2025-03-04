@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: RFValue(16),
+    color: colors.black,
     textAlign: "center",
     fontFamily: "Montserrat Medium",
     flex: 1,
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
   },
   introductionText: {
     fontSize: RFValue(15),
+    color: colors.black,
     marginBottom: verticalScale(10),
     fontFamily: "Montserrat Medium",
   },
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
   calenderText: {
     fontSize: RFValue(12),
     fontFamily: "Montserrat Medium",
+    color: colors.black,
   },
   nextIcon: {
     width: horizontalScale(20),
@@ -93,7 +96,6 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     alignSelf: "center",
     tintColor: "#000000",
-
   },
 
   backgroundOfImage: {
@@ -123,6 +125,7 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: RFValue(12),
     fontFamily: "Montserrat Medium",
+    color: colors.black,
   },
 
   buttonText: {
@@ -134,7 +137,6 @@ const styles = StyleSheet.create({
   content: {
     paddingBottom: verticalScale(100),
   },
-
 });
 
 export default styles;

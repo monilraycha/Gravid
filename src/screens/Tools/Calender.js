@@ -1,32 +1,40 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar } from "react-native-calendars";
 import ToolsHeader from "./ToolsHeader";
 import { RFValue } from "react-native-responsive-fontsize";
 import { moderateScale, verticalScale } from "../../helpers/Metrics";
+import colors from "../../constants/color";
 
-const CustomCalendar = ({navigation}) => {
+const CustomCalendar = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(null);
-  const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-US', {   day: 'numeric' , month: 'long', });
+  const [today, setToday] = useState(new Date());
+  const [formattedDate, setFormattedDate] = useState(
+    today.toLocaleDateString("en-US", { day: "numeric", month: "long" })
+  );
+
+  useEffect(() => {
+    setFormattedDate(
+      today.toLocaleDateString("en-US", { day: "numeric", month: "long" })
+    );
+  }, [today]);
+
+  const handleDayPress = (day) => {
+    setSelectedDate(day.dateString);
+    console.log("Selected day", day);
+  };
 
   return (
     <View style={styles.container}>
-      <ToolsHeader title = "Calender" navigation={navigation}/>
-       <Text style = {styles.date}>
-          {formattedDate}
-       </Text>
+      <ToolsHeader title="Calendar" navigation={navigation} />
+      <Text style={styles.date}>{formattedDate}</Text>
       <Calendar
-        style = {styles.calendar}
-        onDayPress={(day) => {
-          setSelectedDate(day.dateString);
-          console.log("Selected day", day);
-        }}
+        style={styles.calendar}
+        onDayPress={handleDayPress}
         markedDates={{
           [selectedDate]: {
             selected: true,
             selectedColor: "#F88C8C",
-            
           },
         }}
         theme={{
@@ -36,7 +44,7 @@ const CustomCalendar = ({navigation}) => {
           selectedDayBackgroundColor: "#F88C8C",
           selectedDayTextColor: "#ffffff",
           todayTextColor: "#ffffff",
-          todayBackgroundColor:"#F88C8C",
+          todayBackgroundColor: "#F88C8C",
           dayTextColor: "#2d4150",
           arrowColor: "#F88C8C",
         }}
@@ -52,15 +60,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  date:{
-     margin:10,
-     fontSize:RFValue(20),
-     fontFamily:"Montserrat -SemiBold",
-     marginTop:verticalScale(20)
+  date: {
+    margin: 10,
+    fontSize: RFValue(20),
+    color: colors.black,
+    fontFamily: "Montserrat-SemiBold",
+    marginTop: verticalScale(20),
   },
-  calendar:{
-    padding:moderateScale(10),
-    margin:moderateScale(10)
+  calendar: {
+    padding: moderateScale(10),
+    margin: moderateScale(10),
   },
-
 });

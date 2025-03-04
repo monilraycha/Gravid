@@ -10,17 +10,17 @@ import {
 import React, { useRef, useState } from "react";
 import VideoPlayer from "react-native-video-player";
 import colors from "../../constants/color";
-import {PlayContent , PlayImageData} from "../../helpers/PlayContent";
-import videoData from "../../helpers/VideoData";
+import { PlayContent, PlayImageData } from "../../constants/PlayContent";
+import videoData from "../../constants/VideoData";
 import { RFValue } from "react-native-responsive-fontsize";
 import {
   moderateScale,
   horizontalScale,
   verticalScale,
 } from "../../helpers/Metrics";
+import fonts from "../../constants/fonts";
 const { width, height } = Dimensions.get("window");
 const CARD_SIZE = width / 3.4;
-
 
 const PlayScreen = ({ navigation }) => {
   const playerRef = useRef(null);
@@ -91,7 +91,7 @@ const PlayScreen = ({ navigation }) => {
                           if (item.title) {
                             navigation.navigate(item.screenName, {
                               title: item.title,
-                              image:item.image
+                              image: item.image,
                             });
                           }
                         }}
@@ -116,13 +116,18 @@ const PlayScreen = ({ navigation }) => {
                 <Text style={styles.bodyTitle}>BROWSE ALL CONTENT</Text>
                 <FlatList
                   data={item} // Browse all content
+                  scrollEventThrottle={16}
                   renderItem={({ item }) => (
                     <TouchableOpacity
                       style={[
                         styles.card,
                         { width: CARD_SIZE, height: CARD_SIZE },
                       ]}
-                      onPress={() => navigation.navigate(item.screenName, {title: item.title})}
+                      onPress={() =>
+                        navigation.navigate(item.screenName, {
+                          title: item.title,
+                        })
+                      }
                     >
                       <Image source={item.image} style={styles.cardImage} />
                       <Text style={styles.cardTitle}>{item.title}</Text>
@@ -191,8 +196,8 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: RFValue(16, height),
-    fontFamily: "Montserrat Medium",
-    color: "#000",
+    fontFamily: fonts.MontserratMedium,
+    color: colors.black,
     flex: 1,
     textAlign: "center",
   },
@@ -217,7 +222,7 @@ const styles = StyleSheet.create({
   },
   imageTitle: {
     fontSize: RFValue(16, height),
-    fontFamily: "Montserrat-ExtraBold",
+    fontFamily: fonts.MontserratBold,
     marginLeft: horizontalScale(5),
     position: "absolute",
     bottom: "13%",
@@ -226,7 +231,7 @@ const styles = StyleSheet.create({
   },
   imgDescription: {
     fontSize: RFValue(14, height),
-    fontFamily: "Montserrat Medium",
+    fontFamily: fonts.MontserratMedium,
     marginLeft: horizontalScale(10),
     position: "absolute",
     bottom: "5%",
@@ -238,8 +243,8 @@ const styles = StyleSheet.create({
   },
   bodyTitle: {
     fontSize: RFValue(15, height),
-    fontFamily: "Montserrat Medium",
-    color: "#333",
+    fontFamily: fonts.MontserratMedium,
+    color: colors.textSecondary,
     marginLeft: horizontalScale(10),
     marginVertical: verticalScale(10),
   },
@@ -261,12 +266,11 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: RFValue(12, height),
-    fontFamily: "Montserrat Medium",
-    color: "#333",
+    fontFamily: fonts.MontserratMedium,
+    color: colors.black,
     textAlign: "center",
   },
   VideoContainer: {
-    // padding: moderateScale(15),
     paddingLeft: horizontalScale(10),
     marginTop: verticalScale(10),
   },
@@ -274,8 +278,8 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(10),
     marginRight: horizontalScale(10),
     fontSize: RFValue(15, height),
-    fontFamily: "Montserrat Medium",
-    color: "#333",
+    fontFamily: fonts.MontserratMedium,
+    color: colors.black,
   },
   VideoCard: {
     width: horizontalScale(250),
@@ -297,13 +301,14 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
     color: "gray",
     marginLeft: horizontalScale(15),
-    fontFamily: "Montserrat Medium",
+    fontFamily: fonts.MontserratMedium,
   },
   descriptionVideo: {
     fontSize: RFValue(14, height),
+    color: colors.black,
     marginBottom: verticalScale(5),
     marginLeft: horizontalScale(15),
-    fontFamily: "Montserrat Regular",
+    fontFamily: fonts.MontserratRegular,
   },
   videoPlayer: {
     width: "100%",

@@ -1,5 +1,8 @@
 import React from "react";
-import { createBottomTabNavigator  , TransitionSpecs } from "@react-navigation/bottom-tabs";
+import {
+  createBottomTabNavigator,
+  TransitionSpecs,
+} from "@react-navigation/bottom-tabs";
 import { Image, Text, StyleSheet, View, Platform } from "react-native";
 import HomeScreen from "../screens/Tabs/HomeScreen";
 import ArticlesScreen from "../screens/Tabs/ArticlesScreen";
@@ -21,7 +24,7 @@ const TabsNavigator = () => {
         tabBarInactiveTintColor: "#888",
         tabBarItemStyle: styles.tabBarItemStyle,
         tabBarPressColor: colors.primary,
-        animation: 'fade',
+        animation: "fade",
         transitionSpec: TransitionSpecs.FadeSpec,
 
         tabBarIcon: ({ focused }) => {
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: "#fff",
     height: Platform.OS === "ios" ? verticalScale(75) : verticalScale(65), // Increase height for iOS
-    paddingBottom:verticalScale(10),
+    paddingBottom: verticalScale(10),
     borderTopWidth: 1,
     borderTopColor: "#ddd",
     elevation: 5,

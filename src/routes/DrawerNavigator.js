@@ -1,15 +1,27 @@
-import { horizontalScale , verticalScale , moderateScale } from '../helpers/Metrics';
-import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView , Dimensions } from 'react-native';
-import colors from '../constants/color';
-import TabsNavigator from './TabsNavigator';
-import { SafeAreaView , SafeAreaProvider } from 'react-native-safe-area-context';
-import { RFValue } from 'react-native-responsive-fontsize';
+import {
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from "../helpers/Metrics";
+import React from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from "react-native";
+import colors from "../constants/color";
+import TabsNavigator from "./TabsNavigator";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Drawer = createDrawerNavigator();
 
-const {width , height} = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const CustomDrawerContent = ({ navigation }) => {
   return (
@@ -18,24 +30,36 @@ const CustomDrawerContent = ({ navigation }) => {
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.closeDrawer()}>
           <Text style={styles.closeButton}>
-            <Image source={require('../assets/icons/close.png')} style={styles.closeIcon} />
+            <Image
+              source={require("../assets/icons/close.png")}
+              style={styles.closeIcon}
+            />
           </Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
           <Text style={styles.loginButton}>LOG IN</Text>
         </TouchableOpacity>
       </View>
-     
-     
+
       {/* Scrollable Content */}
-      <ScrollView style={styles.scrollView} bounces={false}>
+      <ScrollView
+        style={styles.scrollView}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Profile Section */}
         <View style={styles.profileSection}>
           {/* Add Pregnancy Button */}
-          <TouchableOpacity style={styles.profileItem}  onPress={() => navigation.navigate('TrackPregnancy')}>
+          <TouchableOpacity
+            style={styles.profileItem}
+            onPress={() => navigation.navigate("TrackPregnancy")}
+          >
             <View style={styles.roundBackgroundAdd}>
-              <Image source={require('../assets/icons/pregnant.png')} style={styles.profileIcon} />
+              <Image
+                source={require("../assets/icons/pregnant.png")}
+                style={styles.profileIcon}
+              />
               <View style={styles.roundBadge}>
                 <Text style={styles.badgeText}>+</Text>
               </View>
@@ -44,9 +68,15 @@ const CustomDrawerContent = ({ navigation }) => {
           </TouchableOpacity>
 
           {/* Add Child Button */}
-          <TouchableOpacity style={styles.profileItem} onPress={() => navigation.navigate('AddChildren')} >
+          <TouchableOpacity
+            style={styles.profileItem}
+            onPress={() => navigation.navigate("AddChildren")}
+          >
             <View style={styles.roundBackgroundChild}>
-              <Image source={require('../assets/icons/baby-boy.png')} style={styles.profileIcon} />
+              <Image
+                source={require("../assets/icons/baby-boy.png")}
+                style={styles.profileIcon}
+              />
               <View style={styles.roundBadge}>
                 <Text style={styles.badgeText}>+</Text>
               </View>
@@ -58,19 +88,24 @@ const CustomDrawerContent = ({ navigation }) => {
         {/* Menu Items */}
         <View style={styles.menuContainer}>
           {menuItems.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.menuItem} 
-             
+            <TouchableOpacity
+              activeOpacity={0.8}
+              key={index}
+              style={styles.menuItem}
               onPress={() => navigation.navigate(item.route)}
             >
               <Image source={item.icon} style={styles.menuIcon} />
               <Text style={styles.menuText}>{item.title}</Text>
-              <Image source={require('../assets/icons/chevron.png')} style={styles.arrowIcon} />
+              <Image
+                source={require("../assets/icons/chevron.png")}
+                style={styles.arrowIcon}
+              />
             </TouchableOpacity>
           ))}
         </View>
 
         {/* Footer Section */}
-        <View style={styles.footer}>  
+        <View style={styles.footer}>
           <Text style={styles.footerLogo}>Preglife</Text>
           <Text style={styles.footerVersion}>9.1.13</Text>
           <View style={styles.footerLinks}>
@@ -85,29 +120,65 @@ const CustomDrawerContent = ({ navigation }) => {
 };
 
 const menuItems = [
-  { title: 'Create account', icon: require('../assets/icons/user.png'), route: 'SignUpScreen' },
-  { title: 'My pregnancy', icon: require('../assets/icons/woman.png') , route: 'PregnancyScreen'},
-  { title: 'App settings', icon: require('../assets/images/setting.png') , route: 'SettingsScreen'},
-  { title: 'Push notifications', icon: require('../assets/icons/subscribe.png') , route: 'NotificationsScreen'},
-  { title: 'Share account', icon: require('../assets/icons/share.png') , route: 'ShareScreen'},
-  { title: 'Rate us!', icon: require('../assets/icons/star.png'), route: 'RateScreen' },
-  { title: 'Recommend Preglife', icon: require('../assets/icons/message.png') , route: 'RecommendScreen'},
-  { title: 'Support and FAQ', icon: require('../assets/icons/help-center.png') , route: 'SupportScreen'},
-  { title: 'Contact us', icon: require('../assets/icons/email.png') , route: 'ContactScreen'},
+  {
+    title: "Create account",
+    icon: require("../assets/icons/user.png"),
+    route: "SignUpScreen",
+  },
+  {
+    title: "My pregnancy",
+    icon: require("../assets/icons/woman.png"),
+    route: "PregnancyScreen",
+  },
+  {
+    title: "App settings",
+    icon: require("../assets/images/setting.png"),
+    route: "SettingsScreen",
+  },
+  {
+    title: "Push notifications",
+    icon: require("../assets/icons/subscribe.png"),
+    route: "NotificationsScreen",
+  },
+  {
+    title: "Share account",
+    icon: require("../assets/icons/share.png"),
+    route: "ShareScreen",
+  },
+  {
+    title: "Rate us!",
+    icon: require("../assets/icons/star.png"),
+    route: "RateScreen",
+  },
+  {
+    title: "Recommend Preglife",
+    icon: require("../assets/icons/message.png"),
+    route: "RecommendScreen",
+  },
+  {
+    title: "Support and FAQ",
+    icon: require("../assets/icons/help-center.png"),
+    route: "SupportScreen",
+  },
+  {
+    title: "Contact us",
+    icon: require("../assets/icons/email.png"),
+    route: "ContactScreen",
+  },
 ];
 
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
-      screenOptions={{ 
+      screenOptions={{
         headerShown: false,
-        drawerPosition: 'right',
+        drawerPosition: "right",
         drawerStyle: {
-          width: '100%',
-        }
-      }}>
-
+          width: "100%",
+        },
+      }}
+    >
       <Drawer.Screen
         name="TabsNavigator"
         component={TabsNavigator}
@@ -115,7 +186,6 @@ const DrawerNavigator = () => {
           headerShown: false,
         }}
       />
-
     </Drawer.Navigator>
   );
 };
@@ -127,82 +197,85 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: moderateScale(20),
     backgroundColor: colors.primary,
   },
   headerTitle: {
     fontSize: RFValue(16, height),
-    fontFamily: 'Montserrat Medium',
+    color: colors.black,
+    fontFamily: "Montserrat Medium",
   },
   closeIcon: {
     width: horizontalScale(24),
     height: verticalScale(24),
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   loginButton: {
     fontSize: RFValue(16, height),
-    fontFamily: 'Montserrat Medium',
+    color: colors.black,
+    fontFamily: "Montserrat Medium",
   },
   scrollView: {
     flex: 1,
   },
   profileSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     padding: moderateScale(20),
   },
   profileItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   roundBackgroundAdd: {
     width: horizontalScale(100),
     height: horizontalScale(100),
     borderRadius: horizontalScale(50),
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
   roundBackgroundChild: {
     width: horizontalScale(100),
     height: horizontalScale(100),
     borderRadius: horizontalScale(50),
-    backgroundColor: '#f9a4a4',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
+    backgroundColor: "#f9a4a4",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
   profileIcon: {
     width: horizontalScale(60),
     height: horizontalScale(60),
   },
   roundBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 0,
     width: horizontalScale(25),
     height: horizontalScale(25),
     borderRadius: horizontalScale(12.5),
     backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   profileText: {
     marginTop: verticalScale(10),
     fontSize: RFValue(10, height),
+    color: colors.black,
     letterSpacing: moderateScale(1),
-    fontFamily: 'Montserrat -SemiBold',
+    fontFamily: "Montserrat -SemiBold",
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: verticalScale(15),
     borderTopWidth: moderateScale(2),
-    borderTopColor: '#FFD6D7',
-    width: '100%',
+    borderTopColor: "#FFD6D7",
+    width: "100%",
     paddingVertical: verticalScale(20),
   },
   menuIcon: {
@@ -212,46 +285,47 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontSize: RFValue(16, height),
+    color: colors.black,
     marginLeft: horizontalScale(15),
-    fontFamily: 'Montserrat Regular',
+    fontFamily: "Montserrat Regular",
   },
   arrowIcon: {
     width: horizontalScale(24),
     height: horizontalScale(24),
-    position: 'absolute',
+    position: "absolute",
     right: horizontalScale(15),
   },
   footer: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: verticalScale(20),
-    backgroundColor: '#f8f8f8',
+    backgroundColor: "#f8f8f8",
   },
   footerLogo: {
     fontSize: RFValue(30, height),
-    fontWeight: '500',
+    fontWeight: "500",
     color: colors.primary,
-    fontFamily: 'Montserrat -SemiBold',
+    fontFamily: "Montserrat -SemiBold",
   },
   footerVersion: {
     fontSize: RFValue(12, height),
-    color: '#666',
+    color: "#666",
     marginTop: verticalScale(15),
-    fontFamily: 'Montserrat -Regular',
+    fontFamily: "Montserrat -Regular",
   },
   footerLinks: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: verticalScale(10),
   },
   footerLink: {
     fontSize: RFValue(14, height),
     color: colors.primary,
     marginHorizontal: horizontalScale(5),
-    textDecorationLine: 'underline',
-    fontFamily: 'Montserrat -Regular',
+    textDecorationLine: "underline",
+    fontFamily: "Montserrat -Regular",
   },
   footerDivider: {
     fontSize: RFValue(12, height),
-    color: '#666',
+    color: "#666",
   },
 });

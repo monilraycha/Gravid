@@ -1,21 +1,20 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import CommonButton from '../../components/CommonButton';
-import colors from '../../constants/color';
-import { moderateScale , horizontalScale , verticalScale } from '../../helpers/Metrics';
-import { RFValue } from 'react-native-responsive-fontsize';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import CommonButton from "../../components/CommonButton";
+import colors from "../../constants/color";
+import {
+  moderateScale,
+  horizontalScale,
+  verticalScale,
+} from "../../helpers/Metrics";
+import { RFValue } from "react-native-responsive-fontsize";
 
-
-const StartJourney = ({navigation}) => {
+const StartJourney = ({ navigation }) => {
   const [selectedOption, setSelectedOption] = useState(null); // Track selected option
 
   const renderCheckbox = (isChecked, onPress, imageSource) => (
     <TouchableOpacity style={styles.checkboxContainer} onPress={onPress}>
-      <View
-        style={[
-          styles.checkbox,
-          isChecked && styles.checkboxChecked,
-        ]}>
+      <View style={[styles.checkbox, isChecked && styles.checkboxChecked]}>
         {isChecked && (
           <Image source={imageSource} style={styles.checkmarkImage} />
         )}
@@ -24,29 +23,23 @@ const StartJourney = ({navigation}) => {
   );
 
   const handleEdit = () => {
-    setSelectedOption(null); 
+    setSelectedOption(null);
   };
 
   const handlePress = () => {
-      if(selectedOption === 'pregnancy'){
-        navigation.navigate('TrackPregnancy') // twist
-      }
-      else if(selectedOption === 'childDevelopment'){
-        navigation.navigate('AddChildren')
-      }
-      if(!selectedOption){
-        navigation.navigate('SignUpScreen')
-      }
-
-  }
+    if (selectedOption === "pregnancy") {
+      navigation.navigate("TrackPregnancy"); // twist
+    } else if (selectedOption === "childDevelopment") {
+      navigation.navigate("AddChildren");
+    }
+    if (!selectedOption) {
+      navigation.navigate("SignUpScreen");
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text
-        style={[
-          styles.title,
-          selectedOption && styles.titleReduced, 
-        ]}>
+      <Text style={[styles.title, selectedOption && styles.titleReduced]}>
         About you
       </Text>
 
@@ -61,37 +54,36 @@ const StartJourney = ({navigation}) => {
         <Text style={styles.question}>I want to use Preglife to...</Text>
 
         {/* First Checkbox */}
-        {selectedOption !== 'childDevelopment' && (
+        {selectedOption !== "childDevelopment" && (
           <View style={styles.checkboxItem}>
             {renderCheckbox(
-              selectedOption === 'pregnancy', // Check if 'pregnancy' is selected
-              () => setSelectedOption('pregnancy'), // Set 'pregnancy' when clicked
-              require('../../assets/images/check.png'), // Replace with your image path
+              selectedOption === "pregnancy", // Check if 'pregnancy' is selected
+              () => setSelectedOption("pregnancy"), // Set 'pregnancy' when clicked
+              require("../../assets/images/check.png") // Replace with your image path
             )}
             <Text style={styles.checkboxText}>Track a pregnancy</Text>
 
-            {selectedOption === 'pregnancy' && (
+            {selectedOption === "pregnancy" && (
               <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
                 <Text style={styles.editButtonText}>Edit</Text>
               </TouchableOpacity>
             )}
-            
           </View>
         )}
 
         {/* Second Checkbox */}
-        {selectedOption !== 'pregnancy' && (
+        {selectedOption !== "pregnancy" && (
           <View style={styles.checkboxItem}>
             {renderCheckbox(
-              selectedOption === 'childDevelopment', // Check if 'childDevelopment' is selected
-              () => setSelectedOption('childDevelopment'), // Set 'childDevelopment' when clicked
-              require('../../assets/images/check.png'), // Replace with your image path
+              selectedOption === "childDevelopment", // Check if 'childDevelopment' is selected
+              () => setSelectedOption("childDevelopment"), // Set 'childDevelopment' when clicked
+              require("../../assets/images/check.png") // Replace with your image path
             )}
             <Text style={styles.checkboxText}>
               Follow the development of one or more children (0-2 years old)
             </Text>
 
-            {selectedOption === 'childDevelopment' && (
+            {selectedOption === "childDevelopment" && (
               <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
                 <Text style={styles.editButtonText}>Edit</Text>
               </TouchableOpacity>
@@ -101,7 +93,7 @@ const StartJourney = ({navigation}) => {
       </View>
 
       <CommonButton
-        title={selectedOption ? 'CONTINUE' : 'I HAVE A SHARING CODE'}
+        title={selectedOption ? "CONTINUE" : "I HAVE A SHARING CODE"}
         onPress={handlePress}
         filled={false}
         style={styles.button}
@@ -121,78 +113,81 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: RFValue(22),
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     marginBottom: verticalScale(10),
+    color: colors.black,
   },
   titleReduced: {
-    fontSize: RFValue(16), 
-    opacity: 0.6, 
-    fontWeight: 'normal',
+    fontSize: RFValue(16),
+    opacity: 0.6,
+    fontWeight: "normal",
   },
   description: {
     fontSize: RFValue(14),
     marginBottom: verticalScale(20),
     marginTop: verticalScale(10),
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
+    color: colors.black,
   },
   checkboxContainer: {
     marginTop: verticalScale(25),
   },
   question: {
     fontSize: RFValue(16),
-    fontFamily: 'Montserrat-Regular',
+    color: colors.black,
+    fontFamily: "Montserrat-Regular",
   },
   checkboxItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   checkboxText: {
     marginLeft: 10,
     fontSize: RFValue(14),
+    color: colors.black,
     marginTop: verticalScale(25),
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: "Montserrat-Regular",
   },
   checkbox: {
     width: horizontalScale(30),
     height: horizontalScale(30),
     borderRadius: moderateScale(15),
     borderWidth: moderateScale(3),
-    borderColor: '#F88C8C',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+    borderColor: "#F88C8C",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
     marginTop: verticalScale(10),
   },
   checkboxChecked: {
-    backgroundColor: '#F88C8C',
-    borderColor: '#F88C8C',
+    backgroundColor: "#F88C8C",
+    borderColor: "#F88C8C",
   },
   checkmarkImage: {
     width: horizontalScale(18),
     height: horizontalScale(18),
-    tintColor: 'white',
+    tintColor: "white",
   },
   button: {
     marginTop: verticalScale(20),
-    width: '95%',
-    alignSelf: 'center',
-    position: 'absolute',
+    width: "95%",
+    alignSelf: "center",
+    position: "absolute",
     bottom: verticalScale(20),
   },
   editButton: {
-    position: 'absolute',
+    position: "absolute",
     right: horizontalScale(0),
     fontSize: RFValue(12),
-    color: '#F88C8C',
+    color: "#F88C8C",
     marginTop: verticalScale(5),
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
   },
   editButtonText: {
     fontSize: RFValue(12),
-    color: '#000000',
+    color: colors.black,
     marginTop: verticalScale(5),
     opacity: 0.9,
     letterSpacing: moderateScale(1),
   },
 });
-

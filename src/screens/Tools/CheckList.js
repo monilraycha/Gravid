@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import colors from "../../constants/color";
 import {
@@ -17,7 +17,7 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 import ToolsHeader from "./ToolsHeader";
 
-const {height} = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const Checkbox = ({ isChecked, onPress }) => (
   <TouchableOpacity style={styles.checkboxContainer} onPress={onPress}>
@@ -57,10 +57,14 @@ const CheckList = ({ navigation }) => {
     { label: "Decorate the nursery", checked: false },
     { label: "Discuss baby names with your partner", checked: false },
     { label: "Practice relaxation techniques for labor", checked: false },
-    { label: "Research breastfeeding or bottle-feeding options", checked: false },
-    { label: "Stock up on baby essentials (diapers, clothes, etc.)", checked: false },
-
-   
+    {
+      label: "Research breastfeeding or bottle-feeding options",
+      checked: false,
+    },
+    {
+      label: "Stock up on baby essentials (diapers, clothes, etc.)",
+      checked: false,
+    },
   ]);
 
   // Combine all checklists into a single array
@@ -100,14 +104,11 @@ const CheckList = ({ navigation }) => {
         {/* Progress Status Bar */}
         <View style={styles.progressContainer}>
           <Text style={styles.progressText}>
-             Your Checklist is {progressPercentage.toFixed(0)} % Completed
+            Your Checklist is {progressPercentage.toFixed(0)} % Completed
           </Text>
           <View style={styles.progressBar}>
             <View
-              style={[
-                styles.progressFill,
-                { width: `${progressPercentage}%` },
-              ]}
+              style={[styles.progressFill, { width: `${progressPercentage}%` }]}
             />
           </View>
         </View>
@@ -173,32 +174,32 @@ const styles = StyleSheet.create({
   },
   editButton: {
     padding: moderateScale(10),
-    position:"absolute",
-    right:5
+    position: "absolute",
+    right: 5,
   },
   editButtonText: {
     fontSize: RFValue(15, height),
+    color: colors.black,
     fontFamily: "Montserrat SemiBold",
   },
   progressContainer: {
     marginBottom: verticalScale(20),
-    marginHorizontal:horizontalScale(10)
+    marginHorizontal: horizontalScale(10),
   },
   progressText: {
-    fontSize: RFValue(16 , height),
+    fontSize: RFValue(16, height),
+    color: colors.black,
     fontFamily: "Montserrat SemiBold",
-    color: colors.text,
     marginTop: verticalScale(5),
     // marginLeft:horizontalScale(8),
-    padding:moderateScale(10)
+    padding: moderateScale(10),
   },
   progressBar: {
     height: verticalScale(10),
     backgroundColor: colors.lightGray,
     borderRadius: moderateScale(5),
     overflow: "hidden",
-    marginLeft:horizontalScale(10),
-
+    marginLeft: horizontalScale(10),
   },
   progressFill: {
     height: "100%",
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   groupTitle: {
-    fontSize: RFValue(18 , height),
+    fontSize: RFValue(18, height),
     fontFamily: "Montserrat SemiBold",
     color: colors.primary,
     marginBottom: verticalScale(10),
@@ -230,7 +231,8 @@ const styles = StyleSheet.create({
   },
   checkboxText: {
     marginLeft: horizontalScale(10),
-    fontSize: RFValue(14 , height),
+    color: colors.black,
+    fontSize: RFValue(14, height),
     fontFamily: "Montserrat Regular",
     color: colors.text,
     flexShrink: 1,
