@@ -5,24 +5,28 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import React from "react";
 import colors from "../../constants/color";
 import { RFValue } from "react-native-responsive-fontsize";
-import { horizontalScale , moderateScale, verticalScale } from "../../helpers/Metrics";
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from "../../helpers/Metrics";
 
-const { width , height } = Dimensions.get("window"); // Get screen width
+const { width, height } = Dimensions.get("window"); // Get screen width
 
-const OffersScreen = ({navigation}) => {
+const OffersScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Offers</Text>
       </View>
-     
+
       <ScrollView showsVerticalScrollIndicator={false}>
-      {/* <TouchableOpacity style={styles.card}>
+        {/* <TouchableOpacity style={styles.card}>
         <Image
           source={require("../../assets/images/prmother.jpg")}
           style={styles.image}
@@ -40,28 +44,28 @@ const OffersScreen = ({navigation}) => {
         </Text>
       </TouchableOpacity> */}
 
-      <TouchableOpacity style={styles.card} activeOpacity={0.8} 
-        onPress={() => navigation.navigate('LimitedOffer')}
-      >
-        <Image
-          source={require("../../assets/images/podcastw.jpg")}
-          style={styles.image}
-        />
+        <TouchableOpacity
+          style={styles.card}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate("LimitedOffer")}
+        >
+          <Image
+            source={require("../../assets/images/podcastw.jpg")}
+            style={styles.image}
+          />
 
-        <Text style={styles.title}>
-           Limited access for a month and tailored workouts 
-        </Text>
+          <Text style={styles.title}>
+            Limited access for a month and tailored workouts
+          </Text>
 
-        <Text style={styles.description}>
-          Enjoy secure workout routines, including yoga sessions designed
-          specifically for pregnancy. Dive into a world of self-care with our
-          FREE WEEK TRIAL of the ultimate health and wellness program by signing
-          up today!
-        </Text>
-      </TouchableOpacity>
-      
+          <Text style={styles.description}>
+            Enjoy secure workout routines, including yoga sessions designed
+            specifically for pregnancy. Dive into a world of self-care with our
+            FREE WEEK TRIAL of the ultimate health and wellness program by
+            signing up today!
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
-
     </View>
   );
 };
@@ -85,7 +89,8 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   headerText: {
-    fontSize: RFValue(16 , height),
+    fontSize: RFValue(16, height),
+    color: colors.black,
     fontFamily: "Montserrat-Medium",
     flex: 1,
     textAlign: "center",
@@ -105,15 +110,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: moderateScale(10),
   },
   title: {
-    fontSize: RFValue(16 , height),
+    fontSize: RFValue(16, height),
     fontFamily: "Montserrat-Medium",
     fontWeight: "bold",
-    color: "#333",
+    color: colors.textSecondary,
     textAlign: "left",
     padding: moderateScale(10),
   },
   description: {
-    fontSize: RFValue(12 , height),
+    fontSize: RFValue(12, height),
     fontFamily: "Montserrat-Regular",
     color: "#666",
     lineHeight: moderateScale(20),

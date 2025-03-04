@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Image,
@@ -9,7 +9,7 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import color from "../../constants/color";
+import colors from "../../constants/color";
 import { RFValue } from "react-native-responsive-fontsize";
 import fonts from "../../constants/fonts";
 import {
@@ -47,6 +47,7 @@ const LimitedOffer = ({ onPressItem, navigation }) => {
 
   return (
     <ScrollView
+      bounces={false}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
@@ -71,6 +72,7 @@ const LimitedOffer = ({ onPressItem, navigation }) => {
               <View style={styles.imageContainer}>
                 <Image source={item.image} style={styles.image} />
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={styles.backContainer}
                   onPress={() => navigation.goBack()}
                 >
@@ -100,6 +102,7 @@ const LimitedOffer = ({ onPressItem, navigation }) => {
             return (
               <View style={styles.offersContainer}>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={styles.offerCards}
                   onPress={() => {
                     navigation.navigate(item.screenName);
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     paddingBottom: verticalScale(20),
   },
   videoContainer: {
-    height: height * 0.5, // Use relative height
+    height: height * 0.4, // Use relative height
     width: "100%",
     transform: [{ scaleX: 2 }],
     borderBottomStartRadius: 180,
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width,
-    height: height * 0.5, // Use relative height
+    height: height * 0.4, // Use relative height
     alignItems: "center",
     justifyContent: "center",
     transform: [{ scaleX: 0.5 }],
@@ -170,20 +173,20 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: "absolute",
-    bottom: 120,
+    bottom: "30%",
     left: "5%",
   },
   imgTitle: {
     fontSize: RFValue(20, height),
     fontFamily: fonts.MontserratBold,
-    color: color.white,
+    color: colors.white,
   },
   imgDesc: {
     fontSize: RFValue(14, height),
     textAlign: "left",
     width: "40%",
     fontFamily: fonts.MontserratMedium,
-    color: color.white,
+    color: colors.white,
   },
   backContainer: {
     position: "absolute",
@@ -217,11 +220,12 @@ const styles = StyleSheet.create({
     marginLeft: horizontalScale(15),
     fontFamily: fonts.MontserratMedium,
     letterSpacing: 1,
+    color: colors.black,
   },
   offersContainer: {},
   offerCards: {
     marginTop: verticalScale(20),
-    backgroundColor: color.white,
+    backgroundColor: colors.white,
     borderRadius: 10,
     margin: 10,
     height: verticalScale(300),
@@ -239,12 +243,14 @@ const styles = StyleSheet.create({
     fontFamily: fonts.MontserratMedium,
     marginTop: verticalScale(10),
     marginLeft: horizontalScale(10),
+    color: colors.black,
   },
   offersDesc: {
     fontSize: RFValue(14, height),
     fontFamily: fonts.MontserratRegular,
     marginTop: verticalScale(10),
     marginLeft: horizontalScale(10),
+    color: colors.black,
   },
   duration: {
     fontSize: RFValue(12, height),
@@ -284,6 +290,7 @@ const styles = StyleSheet.create({
   exploreTitle: {
     fontSize: RFValue(18, height),
     fontFamily: fonts.MontserratSemiBold,
+    color: colors.black,
   },
   exploreDesc: {
     fontSize: RFValue(14, height),

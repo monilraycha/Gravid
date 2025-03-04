@@ -1,10 +1,13 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import {styles} from '../index';
+import { styles } from "../index";
 
 const articles = [
   { title: "Folic acid intake recommendations", screen: "FolicAcid" },
-  { title: "Having drunk alcohol before finding out about the pregnancy", screen: "HavingDrunk" },
+  {
+    title: "Having drunk alcohol before finding out about the pregnancy",
+    screen: "HavingDrunk",
+  },
   { title: "What should I eat during pregnancy", screen: "EatDiet" },
   { title: "Miscarriage/terminated pregnancy", screen: "Miscarriage" },
   { title: "Listeria bacteria and toxoplasma parasites", screen: "Listeria" },
@@ -15,8 +18,8 @@ const Diseases = ({ navigation, route }) => {
   const formattedTitle =
     title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
 
-  const handleNavigation = (screen , articleTitle) => {
-    navigation.navigate(screen , {articleTitle});
+  const handleNavigation = (screen, articleTitle) => {
+    navigation.navigate(screen, { articleTitle });
   };
 
   return (
@@ -40,7 +43,10 @@ const Diseases = ({ navigation, route }) => {
 
         {articles.map((article, index) => (
           <View key={index} style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => handleNavigation(article.screen, article.title)}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleNavigation(article.screen, article.title)}
+            >
               <View style={styles.buttonContent}>
                 <Text style={styles.buttonText}>{article.title}</Text>
                 <Image

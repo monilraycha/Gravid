@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import React, { version } from 'react';
-import colors from '../../constants/color';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { horizontalScale, verticalScale } from '../../helpers/Metrics';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from "react-native";
+import React, { version } from "react";
+import colors from "../../constants/color";
+import { RFValue } from "react-native-responsive-fontsize";
+import { horizontalScale, verticalScale } from "../../helpers/Metrics";
 
+const height = Dimensions.get("screen");
 
 const InboxScreen = ({ navigation }) => {
   return (
@@ -12,21 +20,21 @@ const InboxScreen = ({ navigation }) => {
       <View style={styles.header}>
         {/* Left Close Icon */}
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image 
-            source={require('../../assets/icons/close.png')} // Your custom close icon
+          <Image
+            source={require("../../assets/icons/close.png")} // Your custom close icon
             style={styles.closeIcon}
           />
         </TouchableOpacity>
-        
+
         {/* Title */}
         <Text style={styles.headerTitle}>PregLife Inbox</Text>
       </View>
 
       {/* Main Content */}
       <View style={styles.content}>
-        <Image 
-          source={require('../../assets/images/email.png')}
-          style={[styles.emailIcon, { tintColor: colors.primary }]} 
+        <Image
+          source={require("../../assets/images/email.png")}
+          style={[styles.emailIcon, { tintColor: colors.primary }]}
         />
         <Text style={styles.noUpdatesText}>We have no updates.</Text>
         <Text style={styles.noUpdatesText}>Please check again later.</Text>
@@ -43,9 +51,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: horizontalScale(20),
     backgroundColor: colors.primary,
     paddingVertical: verticalScale(15),
@@ -56,14 +64,15 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     flex: 1,
-    textAlign: 'center',
-    fontSize: RFValue(16),
-    fontFamily: 'Montserrat Medium',
+    textAlign: "center",
+    fontSize: RFValue(18, height),
+    fontFamily: "Montserrat Medium",
+    color: colors.black,
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   emailIcon: {
     width: 80,
@@ -71,8 +80,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   noUpdatesText: {
-    fontSize: 16,
-    textAlign: 'center',
-    fontFamily: 'Montserrat Medium',
+    fontSize: RFValue(18, height),
+    textAlign: "center",
+    fontFamily: "Montserrat Medium",
+    color: colors.black,
   },
 });

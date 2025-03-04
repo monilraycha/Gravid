@@ -1,11 +1,11 @@
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
-import colors from '../constants/color';
-import { horizontalScale , verticalScale } from '../helpers/Metrics';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import React from "react";
+import colors from "../constants/color";
+import { verticalScale } from "../helpers/Metrics";
+import fonts from "../constants/fonts";
 
 const CommonButton = ({
-  title = '',
+  title = "",
   onPress = () => {},
   filled = false,
   style = {},
@@ -18,9 +18,11 @@ const CommonButton = ({
         filled ? styles.filledButton : styles.outlinedButton,
         style,
       ]}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       <Text
-        style={[filled ? styles.filledText : styles.outlinedText, textStyle]}>
+        style={[filled ? styles.filledText : styles.outlinedText, textStyle]}
+      >
         {title}
       </Text>
     </TouchableOpacity>
@@ -31,28 +33,27 @@ export default CommonButton;
 
 const styles = StyleSheet.create({
   button: {
-    width: '90%',
+    width: "90%",
     paddingVertical: verticalScale(15),
     borderRadius: 30,
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: verticalScale(10),
   },
   filledButton: {
     backgroundColor: colors.primary,
   },
   outlinedButton: {
-    borderColor: '#333',
+    borderColor: colors.textSecondary,
     borderWidth: 1,
   },
   filledText: {
-    color: '#333',
+    color: colors.black,
     letterSpacing: 1,
-    fontFamily: 'Montserrat Medium',
+    fontFamily: fonts.MontserratMedium,
   },
   outlinedText: {
-    color: '#333',
+    color: colors.textSecondary,
     letterSpacing: 1,
-    fontFamily: 'Montserrat Medium',
-
+    fontFamily: fonts.MontserratMedium,
   },
 });

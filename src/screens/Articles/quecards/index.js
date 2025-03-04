@@ -17,12 +17,14 @@ export const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: RFValue(16),
+    color: colors.black,
     textAlign: "center",
     flex: 1,
     fontFamily: "Montserrat Medium",
   },
   title: {
     fontSize: RFValue(14),
+    color: colors.black,
     marginTop: verticalScale(20),
     fontFamily: "Montserrat Medium",
     marginLeft: horizontalScale(20),
@@ -53,6 +55,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: RFValue(13),
+    color: colors.black,
     flex: 1,
   },
   imgStyle: {

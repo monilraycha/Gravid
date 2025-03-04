@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { ScrollView } from "react-native-gesture-handler";
 import styles from "../CommonStyle";
 
 const PregnancyWeeks = ({ navigation, route }) => {
@@ -30,38 +29,61 @@ const PregnancyWeeks = ({ navigation, route }) => {
         </Text>
       </View>
 
-
-      <ScrollView style={styles.content}>
+      <ScrollView
+        style={styles.content}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
         {/* Reusable Category Buttons */}
         <CategoryButton
           title="Visits during pregnancy"
           articleCount={8}
-          onPress={() => navigation.navigate("VisitsDuringPregnancy" , {articleTitle: "Visits during pregnancy"})}
+          onPress={() =>
+            navigation.navigate("VisitsDuringPregnancy", {
+              articleTitle: "Visits during pregnancy",
+            })
+          }
         />
         <CategoryButton
           title="More information from the midwife"
           articleCount={9}
-          onPress={() => navigation.navigate("MidwifeInformation" , {articleTitle: "More information from the midwife"})}
+          onPress={() =>
+            navigation.navigate("MidwifeInformation", {
+              articleTitle: "More information from the midwife",
+            })
+          }
         />
         <CategoryButton
           title="Pregnancy symptoms"
           articleCount={4}
-          onPress={() => navigation.navigate("sympToms" , {articleTitle: "Pregnancy symptoms"})}
+          onPress={() =>
+            navigation.navigate("sympToms", {
+              articleTitle: "Pregnancy symptoms",
+            })
+          }
         />
         <CategoryButton
           title="Preparations"
           articleCount={6}
-          onPress={() => navigation.navigate("Preparations" , {articleTitle: "Preparations"})}
+          onPress={() =>
+            navigation.navigate("Preparations", {
+              articleTitle: "Preparations",
+            })
+          }
         />
         <CategoryButton
           title="Exercising"
           articleCount={4}
-          onPress={() => navigation.navigate("Exercising" , {articleTitle: "Exercising"})}
+          onPress={() =>
+            navigation.navigate("Exercising", { articleTitle: "Exercising" })
+          }
         />
         <CategoryButton
           title="Fertility"
           articleCount={5}
-          onPress={() => navigation.navigate("Fertility" , {articleTitle: "Fertility"})}
+          onPress={() =>
+            navigation.navigate("Fertility", { articleTitle: "Fertility" })
+          }
         />
       </ScrollView>
     </View>

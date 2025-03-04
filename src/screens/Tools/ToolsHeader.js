@@ -1,11 +1,19 @@
 // components/Header.js
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { horizontalScale , verticalScale } from "../../helpers/Metrics";
+import { horizontalScale, verticalScale } from "../../helpers/Metrics";
 import colors from "../../constants/color";
+import fonts from "../../constants/fonts";
 
-const {height} = Dimensions.get('window')
+const { height } = Dimensions.get("window");
 
 const ToolsHeader = ({ navigation, title }) => (
   <View style={styles.header}>
@@ -37,8 +45,9 @@ const styles = StyleSheet.create({
     height: horizontalScale(20),
   },
   headerText: {
-    fontSize: RFValue(16 , height),
-    fontFamily: "Montserrat Medium",
+    fontSize: RFValue(16, height),
+    color: colors.black,
+    fontFamily: fonts.MontserratMedium,
     flex: 1,
     textAlign: "center",
   },

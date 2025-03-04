@@ -26,6 +26,7 @@ const ScrollableContent = ({
   subTitles,
   descriptions,
   sourceText,
+  sourceTitle,
 }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const imageHeight = deviceHeight * 0.3;
@@ -113,7 +114,7 @@ const ScrollableContent = ({
                 </Text>
               ))}
 
-          <Text style={styles.titleSource}>Source:</Text>
+          <Text style={styles.titleSource}>{sourceTitle}</Text>
           <Text style={styles.sourceText}>{sourceText}</Text>
           <View style={styles.horizontalLine}></View>
         </View>
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: horizontalScale(20),
-    zIndex: 2, // Ensure icons are above the header and image
+    zIndex: 2,
   },
   fixedHeader: {
     position: "absolute",
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(20),
     flexDirection: "row",
     alignItems: "center",
-    zIndex: 1, // Ensure header is below the icons
+    zIndex: 1,
   },
   cancelButton: {
     position: "absolute",
@@ -178,6 +179,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: RFValue(14, deviceHeight),
+    color: colors.black,
     flex: 1,
     textAlign: "center",
     fontFamily: "Montserrat-Medium",
@@ -196,23 +198,27 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: RFValue(17, deviceHeight),
+    color: colors.black,
     marginBottom: verticalScale(20),
     fontFamily: fonts.MontserratBold,
   },
   subTitle: {
     fontSize: RFValue(14, deviceHeight),
+    color: colors.black,
     marginBottom: verticalScale(10),
     paddingVertical: verticalScale(5),
     fontFamily: "Montserrat Bold",
   },
   description: {
     fontSize: RFValue(14, deviceHeight),
+    color: colors.black,
     marginBottom: verticalScale(15),
     lineHeight: verticalScale(20),
     fontFamily: fonts.MontserratRegular,
   },
   title: {
     fontSize: RFValue(10, deviceHeight),
+    color: colors.black,
     width: "20%",
     marginBottom: verticalScale(20),
     letterSpacing: 1,
@@ -224,12 +230,14 @@ const styles = StyleSheet.create({
   },
   titleSource: {
     fontSize: RFValue(15, deviceHeight),
+    color: colors.black,
     fontFamily: fonts.MontserratMedium,
     marginBottom: verticalScale(20),
     letterSpacing: 1,
   },
   sourceText: {
     fontSize: RFValue(14, deviceHeight),
+    color: colors.black,
     marginBottom: verticalScale(20),
     lineHeight: verticalScale(20),
     fontFamily: fonts.MontserratRegular,
@@ -240,6 +248,6 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(20),
   },
   scrollViewContent: {
-    minHeight: deviceHeight + 200, // Ensure the ScrollView has enough content to scroll
+    minHeight: deviceHeight + 180, // Ensure the ScrollView has enough content to scroll
   },
 });

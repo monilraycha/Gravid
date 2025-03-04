@@ -4,26 +4,29 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  ScrollView,
-  StatusBar
-} from 'react-native';
-import React from 'react';
-import CommonButton from '../../components/CommonButton';
-import colors from '../../constants/color';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { horizontalScale, verticalScale, moderateScale } from '../../helpers/Metrics';
+} from "react-native";
+import React from "react";
+import CommonButton from "../../components/CommonButton";
+import colors from "../../constants/color";
+import { RFValue } from "react-native-responsive-fontsize";
+import {
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from "../../helpers/Metrics";
+import fonts from "../../constants/fonts";
 
-const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const isFormFilled = () => {
-    return email.trim() !== '' && password.trim() !== '';
+    return email.trim() !== "" && password.trim() !== "";
   };
 
   const handleLogin = () => {
-      navigation.navigate('MainApp');
-  }
+    navigation.navigate("MainApp");
+  };
 
   return (
     <View style={styles.container}>
@@ -31,6 +34,7 @@ const LoginScreen = ({navigation}) => {
 
       <TextInput
         placeholder="E-mail"
+        placeholderTextColor={colors.textSecondary}
         style={styles.input}
         keyboardType="email-address"
         onChangeText={setEmail}
@@ -39,6 +43,7 @@ const LoginScreen = ({navigation}) => {
 
       <TextInput
         placeholder="Password"
+        placeholderTextColor={colors.textSecondary}
         style={styles.input}
         secureTextEntry
         onChangeText={setPassword}
@@ -54,9 +59,9 @@ const LoginScreen = ({navigation}) => {
         filled={true}
         style={[
           styles.buttonCss,
-          {backgroundColor: isFormFilled() ? '#F88C8C' : '#D9D9D9'}, 
+          { backgroundColor: isFormFilled() ? "#F88C8C" : "#B6B0AE" },
         ]}
-        textStyle={{color: '#ffffff'}} 
+        textStyle={{ color: "#ffffff" }}
         onPress={handleLogin}
       />
     </View>
@@ -70,40 +75,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     padding: horizontalScale(30),
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: "flex-start",
+    alignItems: "center",
     marginTop: verticalScale(60),
   },
   title: {
-    fontSize: RFValue(22),
-    fontFamily: 'Montserrat-Bold',
-    alignSelf: 'flex-start',
+    fontSize: RFValue(20),
+    color: colors.black,
+    fontFamily: "Montserrat-Bold",
+    alignSelf: "flex-start",
     marginBottom: verticalScale(25),
-    color: '#333',
   },
   input: {
     height: verticalScale(50),
-    borderColor: '#0f172a',
+    borderColor: "#0f172a",
     borderWidth: 1,
     borderRadius: moderateScale(10),
     marginBottom: verticalScale(20),
     paddingHorizontal: horizontalScale(15),
     fontSize: RFValue(13),
-    width: '100%',
+    color: colors.black,
+    width: "100%",
     marginTop: verticalScale(10),
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: "Montserrat-Medium",
   },
   forgotPassword: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginTop: verticalScale(10),
   },
   forgotText: {
     fontSize: RFValue(12),
+    color: colors.black,
     letterSpacing: 1,
-    fontFamily: 'Montserrat-Italic',
+    fontFamily: fonts.MontserratItalic,
   },
   buttonCss: {
-    position: 'absolute',
+    position: "absolute",
     bottom: verticalScale(20),
   },
 });

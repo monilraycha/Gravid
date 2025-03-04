@@ -18,8 +18,9 @@ import {
 } from "../../helpers/Metrics";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { RFValue } from "react-native-responsive-fontsize";
-import videoData from "../../helpers/VideoData";
+import videoData from "../../constants/VideoData";
 import VideoPlayer from "react-native-video-player";
+import fonts from "../../constants/fonts";
 
 const { height } = Dimensions.get("window");
 
@@ -84,7 +85,11 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaProvider>
-      <AnimatedHeader animatedValue={offset} navigation={navigation} />
+      <AnimatedHeader
+        animatedValue={offset}
+        navigation={navigation}
+        style={styles.headBg}
+      />
       <ScrollView
         style={styles.scrollView}
         bounces={false}
@@ -104,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
               <View style={styles.buttonContainer}>
                 {/* Button 1 */}
                 <View style={styles.buttonWrapper}>
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity style={styles.button} activeOpacity={0.8}>
                     <Image
                       source={require("../../assets/icons/1.png")}
                       style={styles.buttonIcon}
@@ -114,7 +119,7 @@ const HomeScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.buttonWrapper}>
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity style={styles.button} activeOpacity={0.8}>
                     <Image
                       source={require("../../assets/icons/2.png")}
                       style={styles.buttonIcon}
@@ -124,7 +129,7 @@ const HomeScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.buttonWrapper}>
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity style={styles.button} activeOpacity={0.8}>
                     <Image
                       source={require("../../assets/icons/3.png")}
                       style={styles.buttonIcon}
@@ -138,7 +143,7 @@ const HomeScreen = ({ navigation }) => {
             <View>
               <Text style={styles.postTitle}>POSTPARTUM</Text>
 
-              <TouchableOpacity style={styles.toolCard}>
+              <TouchableOpacity style={styles.toolCard} activeOpacity={0.8}>
                 <View style={styles.toolItem}>
                   <View style={styles.iconContainer}>
                     <Image
@@ -189,6 +194,7 @@ const HomeScreen = ({ navigation }) => {
                 {/* Instagram Card */}
                 <Text style={styles.sectionTitle}>INSTAGRAM</Text>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={styles.instagramCard}
                   onPress={() => navigation.navigate("FollowOnInsta")}
                 >
@@ -209,7 +215,7 @@ const HomeScreen = ({ navigation }) => {
                 {/* Weight section */}
 
                 <Text style={styles.sectionTitle}>WEIGHT CURVE</Text>
-                <TouchableOpacity style={styles.weightCard}>
+                <TouchableOpacity style={styles.weightCard} activeOpacity={0.8}>
                   <View style={styles.weightIconContainer}>
                     <Image
                       source={require("../../assets/images/chart.png")}
@@ -226,6 +232,7 @@ const HomeScreen = ({ navigation }) => {
 
                 <Text style={styles.sectionTitle}>MY BIRTH STORY</Text>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={styles.weightCard}
                   onPress={() => navigation.navigate("TellStory")}
                 >
@@ -244,6 +251,7 @@ const HomeScreen = ({ navigation }) => {
                 {/* oxytocin */}
                 <Text style={styles.sectionTitle}>OXYTOCIN</Text>
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={styles.oxytocinCard}
                   onPress={() => navigation.navigate("OxyTocin")}
                 >
@@ -264,6 +272,7 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.sectionTitle}>AM I PREGNANT?</Text>
 
                 <TouchableOpacity
+                  activeOpacity={0.8}
                   style={styles.oxytocinCard}
                   onPress={() => navigation.navigate("OxyTocin")}
                 >
@@ -283,17 +292,16 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </View>
           <Text
-            style={[styles.featureWeek, { marginLeft: horizontalScale(20) }]}
+            style={[styles.sectionTitle, { marginLeft: horizontalScale(20) }]}
           >
             FEATURED THIS WEEK
           </Text>
 
           <View style={styles.FeatureVideo}>
-            <TouchableOpacity 
-                onPress={
-                  () => navigation.navigate("FactsVideo")
-                }
-             >
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FactsVideo")}
+              activeOpacity={0.8}
+            >
               {/* Image with Play Icon and Timestamp */}
               <View style={styles.imageContainer}>
                 <Image
@@ -306,7 +314,7 @@ const HomeScreen = ({ navigation }) => {
                   source={require("../../assets/icons/play-button1.png")}
                 />
                 {/* Timestamp */}
-                <Text style={styles.FeaturedDuration}>4:30</Text>
+                <Text style={styles.FeaturedDuration}>9:57</Text>
               </View>
 
               {/* Title and Description */}
@@ -321,7 +329,7 @@ const HomeScreen = ({ navigation }) => {
             TRY PREGLIFE WELLNESS
           </Text>
 
-          <TouchableOpacity style={styles.toolCard}>
+          <TouchableOpacity style={styles.toolCard} activeOpacity={0.8}>
             <View style={styles.toolItem}>
               <View style={styles.iconContainer}>
                 <Image
@@ -347,7 +355,8 @@ const HomeScreen = ({ navigation }) => {
           </Text>
 
           <TouchableOpacity
-            style={[styles.oxytocinCard,{ margin: horizontalScale(20) }]}
+            activeOpacity={0.8}
+            style={[styles.oxytocinCard, { margin: horizontalScale(20) }]}
             onPress={() => navigation.navigate("OxyTocin")}
           >
             <View style={styles.oxytocinTextContainer}>
@@ -392,12 +401,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  headBg: {
+    backgroundColor: colors.background,
+  },
   scrollView: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   title: {
     fontSize: RFValue(16, height),
+    color: colors.black,
     marginBottom: verticalScale(10),
     marginTop: verticalScale(20),
     fontFamily: "Montserrat Medium",
@@ -457,16 +469,19 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(10),
   },
   btnTitle: {
-    fontSize: RFValue(12),
+    fontSize: RFValue(14, height),
+    color: colors.black,
     textAlign: "center",
     marginTop: verticalScale(5),
-    fontFamily: "Montserrat",
+    fontFamily: fonts.MontserratMedium,
   },
   postTitle: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(14, height),
+    color: colors.black,
     marginTop: verticalScale(40),
     marginLeft: horizontalScale(25),
-    fontFamily: "Montserrat",
+    fontFamily: fonts.MontserratMedium,
+    letterSpacing: 1,
   },
   toolCard: {
     marginTop: verticalScale(10),
@@ -509,13 +524,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   toolTitle: {
-    fontSize: RFValue(16 , height),
-    fontWeight: moderateScale(600),
+    fontSize: RFValue(16, height),
+    color: colors.black,
     marginBottom: verticalScale(5),
     fontFamily: "Montserrat-Medium",
   },
   toolDescription: {
-    fontSize: RFValue(14 , height),
+    fontSize: RFValue(14, height),
     color: "#555",
     fontFamily: "Montserrat-Regular",
     marginTop: verticalScale(5),
@@ -526,9 +541,11 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: RFValue(14, height),
+    color: colors.black,
     marginBottom: verticalScale(10),
     marginTop: verticalScale(20),
-    fontFamily: "Montserrat",
+    fontFamily: fonts.MontserratMedium,
+    letterSpacing: 1,
   },
 
   playIconContainer: {
@@ -550,35 +567,37 @@ const styles = StyleSheet.create({
   },
   VideoTitle: {
     marginBottom: verticalScale(10),
-    marginRight: horizontalScale(10),
     fontSize: RFValue(14, height),
-    fontFamily: "Montserrat Medium",
-    color: "#333",
+    color: colors.black,
+    marginRight: horizontalScale(10),
+    fontFamily: fonts.MontserratMedium,
+    letterSpacing: 1,
   },
   VideoCard: {
     width: horizontalScale(250),
     marginRight: horizontalScale(15),
     backgroundColor: "#fff",
-    borderRadius: moderateScale(10),
+    borderRadius: 10,
     paddingBottom: verticalScale(30),
     marginBottom: verticalScale(10),
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 8,
-    overflow: "hidden",
+    shadowRadius: 10,
+    elevation: 4,
+    overflow: Platform.OS === "ios" ? "hidden" : "visible",
   },
   titleVideo: {
     fontSize: RFValue(16, height),
     marginTop: verticalScale(10),
     marginBottom: verticalScale(5),
-    color: "gray",
+    color: colors.black,
     marginLeft: horizontalScale(15),
-    fontFamily: "Montserrat Medium",
+    fontFamily: "Montserrat-Medium",
   },
   descriptionVideo: {
     fontSize: RFValue(14, height),
+    color: colors.black,
     marginBottom: verticalScale(5),
     marginLeft: horizontalScale(15),
     fontFamily: "Montserrat Regular",
@@ -612,15 +631,18 @@ const styles = StyleSheet.create({
     tintColor: "#fff",
   },
   instagramText: {
-    fontSize: RFValue(13),
+    fontSize: RFValue(16, height),
+    color: colors.black,
     flex: 1,
     textAlign: "left",
     marginLeft: RFValue(10),
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
   },
   readMore: {
-    fontSize: RFValue(12),
+    fontSize: RFValue(14, height),
+    color: colors.black,
     marginTop: 10,
+    fontFamily: "Montserrat-Medium",
   },
   weightCard: {
     backgroundColor: "#fff",
@@ -640,7 +662,8 @@ const styles = StyleSheet.create({
     marginRight: RFValue(10),
   },
   weightText: {
-    fontSize: RFValue(13),
+    fontSize: RFValue(16, height),
+    color: colors.black,
     flex: 1,
     textAlign: "left",
     marginLeft: RFValue(10),
@@ -682,14 +705,15 @@ const styles = StyleSheet.create({
     marginLeft: RFValue(10),
   },
   oxytocinText: {
-    fontSize: RFValue(12),
+    fontSize: RFValue(12, height),
     fontFamily: "Montserrat-Medium",
     paddingBottom: RFValue(10),
     color: "grey",
   },
   oxytocinDesc: {
-    fontSize: RFValue(16, height),
-    fontFamily: "Montserrat-Medium",
+    fontSize: RFValue(15, height),
+    color: colors.black,
+    fontFamily: "Montserrat-Regular",
   },
   oxytocinImage: {
     width: "50%",
@@ -722,28 +746,29 @@ const styles = StyleSheet.create({
   },
   FeatureDescription: {
     fontSize: RFValue(14, height),
+    color: colors.black,
     fontFamily: "Montserrat-Regular",
     paddingHorizontal: moderateScale(10),
     paddingBottom: verticalScale(20),
   },
   FeaturedPlayIcon: {
     position: "absolute",
-    top: "50%", // Center vertically
-    left: "50%", // Center horizontally
-    transform: [{ translateX: -20 }, { translateY: -20 }], // Adjust for icon size
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -20 }, { translateY: -20 }],
     height: horizontalScale(45),
     width: horizontalScale(45),
-    tintColor: colors.black,
+    tintColor: colors.white,
   },
   FeaturedDuration: {
     position: "absolute",
-    bottom: moderateScale(10), // Position at the bottom
-    right: moderateScale(10), // Position at the right
+    bottom: moderateScale(10),
+    right: moderateScale(10),
     fontSize: RFValue(12),
     color: colors.white,
     backgroundColor: "#272727",
     padding: moderateScale(5),
     paddingHorizontal: horizontalScale(10),
-    borderRadius: moderateScale(4), // Optional: Add border radius
+    borderRadius: moderateScale(4),
   },
 });
